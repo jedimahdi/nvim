@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require("lazy").setup({
-  "rebelot/kanagawa.nvim",
+  "folke/tokyonight.nvim",
   "nvimtools/none-ls.nvim",
   "tamago324/lir.nvim",
   "ThePrimeagen/harpoon",
@@ -29,7 +29,7 @@ require("lazy").setup({
   "kyazdani42/nvim-web-devicons",
   "tjdevries/ocaml.nvim",
   "simrat39/rust-tools.nvim",
-  -- "purescript-contrib/purescript-vim",
+  "purescript-contrib/purescript-vim",
   {
     "mrcjkb/haskell-tools.nvim",
     version = "^3",
@@ -87,6 +87,14 @@ require("lazy").setup({
   -- },
   { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
   "theHamsta/nvim-dap-virtual-text",
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
   -- { "norcalli/nvim-colorizer.lua" , config = function()
   --   require 'colorizer'.setup()
   -- end

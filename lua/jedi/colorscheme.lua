@@ -5,6 +5,15 @@ require("onedark").setup({
 })
 require("onedark").load()
 
+local transparent = {
+  bg = "none",
+  ctermbg = "none",
+}
+
+vim.api.nvim_set_hl(0, "Normal", transparent)
+vim.api.nvim_set_hl(0, "NonText", transparent)
+vim.api.nvim_set_hl(0, "SignColumn", transparent)
+
 -- set sign
 -- vim.cmd("sign define DiagnosticSignError text=  linehl= texthl=DiagnosticSignError numhl=")
 -- vim.cmd("sign define DiagnosticSignHint text=  linehl= texthl=DiagnosticSignHint numhl=")

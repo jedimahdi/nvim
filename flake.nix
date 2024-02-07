@@ -20,12 +20,14 @@
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        treefmtWrapper = treefmtEval.config.build.wrapper;
       in {
-        formatter = treefmtEval.config.build.wrapper;
+        formatter = treefmtWrapper;
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = [
             pkgs.stylua
             pkgs.alejandra
+            treefmtWrapper
           ];
         };
       }

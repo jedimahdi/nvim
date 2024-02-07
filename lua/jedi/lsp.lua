@@ -66,17 +66,17 @@ lspconfig.nil_ls.setup({
   },
 })
 
-lspconfig.yamlls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    yaml = {
-      schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-      },
-    },
-  },
-})
+-- lspconfig.yamlls.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   settings = {
+--     yaml = {
+--       schemas = {
+--         ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+--       },
+--     },
+--   },
+-- })
 
 require("typescript-tools").setup({
   on_attach = on_attach,
