@@ -136,27 +136,25 @@ lspconfig.purescriptls.setup({
 --   },
 -- })
 
-local rt = require("rust-tools")
-
-rt.setup({
-  server = {
-    on_attach = function(x, bufnr)
-      on_attach(x, bufnr)
-      -- Hover actions
-      -- vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "gA", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-    handlers = {
-      ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = false,
-        virtual_text = false,
-      }),
+lspconfig.rust_analyzer.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  handlers = {
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+      underline = false,
+      virtual_text = true,
+    }),
+  },
+  settings = {
+    ["rust-analyzer"] = {
+      check = {
+        ignore = { "dead_code", "unused_imports", "unused_variables" },
+      },
     },
   },
 })
 
-require("lspconfig").lua_ls.setup({
+lspconfig.lua_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   on_init = function(client)
@@ -238,6 +236,11 @@ require("lspconfig").lua_ls.setup({
 --   on_attach = on_attach,
 --   capabilities = capabilities,
 -- })
+
+lspconfig.gopls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
 local def_opts = { noremap = true, silent = true }
 

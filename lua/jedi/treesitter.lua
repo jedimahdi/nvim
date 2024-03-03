@@ -1,17 +1,17 @@
-require("ocaml").setup()
+-- require("ocaml").setup()
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     -- "c",
     "lua",
-    -- "rust",
-    -- "haskell",
-    -- "json",
+    "rust",
+    "haskell",
+    "json",
     -- "javascript",
     -- "nix",
     -- "zig",
     -- "yaml",
-    -- "typescript",
+    "typescript",
     -- "tsx",
     -- "toml",
     -- "sql",
@@ -25,7 +25,7 @@ require("nvim-treesitter.configs").setup({
     -- "elm",
     -- "css",
     -- "cpp",
-    -- "bash",
+    "bash",
     -- "ocaml",
     -- "rapper",
   },

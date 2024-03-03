@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require("lazy").setup({
-  "folke/tokyonight.nvim",
+  -- "folke/tokyonight.nvim",
   "nvimtools/none-ls.nvim",
   "tamago324/lir.nvim",
   "ThePrimeagen/harpoon",
@@ -27,8 +27,7 @@ require("lazy").setup({
   "tpope/vim-surround",
   "romainl/vim-cool",
   "kyazdani42/nvim-web-devicons",
-  "tjdevries/ocaml.nvim",
-  "simrat39/rust-tools.nvim",
+  -- "tjdevries/ocaml.nvim",
   "purescript-contrib/purescript-vim",
   {
     "mrcjkb/haskell-tools.nvim",
@@ -85,8 +84,8 @@ require("lazy").setup({
   --     })
   --   end,
   -- },
-  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
-  "theHamsta/nvim-dap-virtual-text",
+  -- { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+  -- "theHamsta/nvim-dap-virtual-text",
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

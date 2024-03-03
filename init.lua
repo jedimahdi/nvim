@@ -9,7 +9,7 @@ require("jedi.lsp")
 require("jedi.cmp")
 require("jedi.harpoon")
 require("jedi.tmux")
-require("jedi.dap")
+-- require("jedi.dap")
 require("jedi.null")
 
 require("Comment").setup()
