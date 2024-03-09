@@ -29,10 +29,10 @@ require("lazy").setup({
   "kyazdani42/nvim-web-devicons",
   -- "tjdevries/ocaml.nvim",
   "purescript-contrib/purescript-vim",
-  {
-    "mrcjkb/haskell-tools.nvim",
-    version = "^3",
-  },
+  -- {
+  --   "mrcjkb/haskell-tools.nvim",
+  --   version = "^3",
+  -- },
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -52,9 +52,20 @@ require("lazy").setup({
   { -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
   },
+  {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp",
+  },
   { -- Autocompletion
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+    },
   },
   -- {
   --   "nvim-neorg/neorg",
