@@ -18,12 +18,9 @@ cmp.setup({
       ls.lsp_expand(args.body)
     end,
   },
-  -- window = {
-  --   documentation = cmp.config.window.bordered(),
-  -- },
   preselect = cmp.PreselectMode.None,
   mapping = cmp.mapping.preset.insert({
-    ["<C-j>"] = cmp.mapping(
+    ["<C-i>"] = cmp.mapping(
       cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
@@ -102,5 +99,14 @@ cmp.setup({
   }, {
     { name = "path" },
     { name = "buffer", keyword_length = 5 },
+  }),
+})
+
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    { name = "cmdline" },
   }),
 })

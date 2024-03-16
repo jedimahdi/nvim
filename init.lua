@@ -10,7 +10,7 @@ require("jedi.colorscheme")
 require("jedi.treesitter")
 require("jedi.cmp")
 require("jedi.harpoon")
--- require("jedi.tmux")
+require("jedi.tmux")
 require("jedi.null")
 
 require("Comment").setup()

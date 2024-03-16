@@ -16,6 +16,7 @@ vim.o.termguicolors = true
 
 require("lazy").setup({
   -- "folke/tokyonight.nvim",
+  { "catppuccin/nvim", name = "catppuccin" },
   "nvimtools/none-ls.nvim",
   "tamago324/lir.nvim",
   "ThePrimeagen/harpoon",
@@ -62,9 +63,10 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
     },
   },
   -- {
