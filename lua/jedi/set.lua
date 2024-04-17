@@ -2,8 +2,12 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 
+vim.g.have_nerd_font = true
+
 vim.opt.mouse = "a"
 vim.opt.guicursor = ""
+
+vim.opt.breakindent = true
 
 vim.opt.formatoptions = vim.opt.formatoptions
   - "a" -- Auto formatting is BAD.
@@ -51,14 +55,14 @@ vim.opt.cmdheight = 1
 
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 
 -- Don't pass messages to |ins-completion-menu|.
 vim.opt.shortmess:append("c")
 
 -- vim.opt.colorcolumn = "80"
 
-vim.opt.clipboard = "unnamedplus" -- unnamed
+vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
 

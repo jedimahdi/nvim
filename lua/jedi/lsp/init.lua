@@ -39,7 +39,7 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 capabilities.textDocument.codeLens = { dynamicRegistration = false }
 
-local servers = { "clangd", "pyright", "jsonls", "html", "bashls", "gopls" }
+local servers = { "clangd", "pyright", "jsonls", "html", "bashls", "gopls", "ocamllsp" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({

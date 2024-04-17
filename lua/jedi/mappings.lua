@@ -27,7 +27,7 @@ vim.keymap.set("c", "<C-A>", "<HOME>")
 vim.keymap.set("i", "<C-D>", "<DEL>")
 
 -- nnoremap("<leader>e", ":Ex<CR>")
-nnoremap("<leader>u", ":UndotreeShow<CR>")
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
 vnoremap("J", ":m '>+1<CR>gv=gv")
@@ -83,3 +83,4 @@ nnoremap("<leader>p", function()
 end)
 
 nnoremap("<leader>n", "<cmd>nohls<CR>")
+nnoremap("K", function() end)

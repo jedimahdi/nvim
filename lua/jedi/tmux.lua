@@ -42,7 +42,9 @@ local exec_project = function()
   if ft == "rust" then
     send_tmux_cmd([[neww -n cargo bash -c "cargo run -q; sleep 2"]])
   end
-
+  if ft == "go" then
+    send_tmux_cmd([[neww -n go bash -c "go run .; sleep 2"]])
+  end
   if ft == "haskell" then
     send_tmux_cmd([[neww -n cabal bash -c "cabal run -v0"]])
   end

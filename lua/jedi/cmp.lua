@@ -20,7 +20,7 @@ cmp.setup({
   },
   preselect = cmp.PreselectMode.None,
   mapping = cmp.mapping.preset.insert({
-    ["<C-i>"] = cmp.mapping(
+    ["<C-j>"] = cmp.mapping(
       cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,

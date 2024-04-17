@@ -16,9 +16,10 @@ vim.o.termguicolors = true
 
 require("lazy").setup({
   -- "folke/tokyonight.nvim",
-  { "catppuccin/nvim", name = "catppuccin" },
+  -- { "catppuccin/nvim", name = "catppuccin" },
   "nvimtools/none-ls.nvim",
   "tamago324/lir.nvim",
+  "mbbill/undotree",
   "ThePrimeagen/harpoon",
   "onsails/lspkind-nvim",
   "navarasu/onedark.nvim",
@@ -26,7 +27,7 @@ require("lazy").setup({
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
   "tpope/vim-surround",
-  "romainl/vim-cool",
+  -- "romainl/vim-cool",
   "kyazdani42/nvim-web-devicons",
   -- "tjdevries/ocaml.nvim",
   "purescript-contrib/purescript-vim",
@@ -41,8 +42,9 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
-    dependencies = { "nvim-lua/plenary.nvim", "natecraddock/telescope-zf-native.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   { -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
