@@ -77,10 +77,26 @@ nnoremap("<leader>z", "<cmd>TSPlaygroundToggle<CR>")
 nnoremap("<leader>p", function()
   vim.lsp.buf.format({
     filter = function(client)
-      return client.name == "null-ls"
+      return client.name == "null-ls" or client.name == "rust_analyzer"
     end,
   })
 end)
 
 nnoremap("<leader>n", "<cmd>nohls<CR>")
 nnoremap("K", function() end)
+
+vim.keymap.set("n", "<M-j>", function()
+  if vim.opt.diff:get() then
+    vim.cmd([[normal! ]c]])
+  else
+    vim.cmd([[m .+1<CR>==]])
+  end
+end)
+
+vim.keymap.set("n", "<M-k>", function()
+  if vim.opt.diff:get() then
+    vim.cmd([[normal! [c]])
+  else
+    vim.cmd([[m .-2<CR>==]])
+  end
+end)

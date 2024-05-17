@@ -14,7 +14,9 @@ require("jedi.tmux")
 require("jedi.null")
 
 require("Comment").setup()
-require("nvim-autopairs").setup({})
+require("nvim-autopairs").setup({
+  disable_filetype = { "TelescopePrompt" },
+})
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd

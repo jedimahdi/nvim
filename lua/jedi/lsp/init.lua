@@ -38,8 +38,9 @@ vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capab
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 capabilities.textDocument.codeLens = { dynamicRegistration = false }
+capabilities.offsetEncoding = { "utf-16" }
 
-local servers = { "clangd", "pyright", "jsonls", "html", "bashls", "gopls", "ocamllsp" }
+local servers = { "jsonls", "html", "bashls", "gopls", "ocamllsp", "zls", "roc_ls" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({

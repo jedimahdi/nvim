@@ -18,7 +18,7 @@ local sources = {
   -- null_ls.builtins.code_actions.shellcheck,
   require("jedi.null.cabal-fmt"),
   require("jedi.null.fourmolu"),
-  require("jedi.null.rustfmt"),
+  -- require("jedi.null.rustfmt"),
   null_ls.builtins.formatting.ocamlformat,
   null_ls.builtins.formatting.gofmt,
 }

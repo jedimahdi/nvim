@@ -98,7 +98,7 @@ cmp.setup({
     { name = "luasnip" },
   }, {
     { name = "path" },
-    { name = "buffer", keyword_length = 5 },
+    { name = "buffer", keyword_length = 4 },
   }),
 })
 
@@ -110,3 +110,24 @@ cmp.setup.cmdline(":", {
     { name = "cmdline" },
   }),
 })
+
+ls.config.set_config({
+  history = false,
+  updateevents = "TextChanged,TextChangedI",
+})
+
+for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/jedi/snippets/*.lua", true)) do
+  loadfile(ft_path)()
+end
+
+vim.keymap.set({ "i", "s" }, "<c-k>", function()
+  if ls.expand_or_jumpable() then
+    ls.expand_or_jump()
+  end
+end, { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<c-l>", function()
+  if ls.jumpable(-1) then
+    ls.jump(-1)
+  end
+end, { silent = true })
