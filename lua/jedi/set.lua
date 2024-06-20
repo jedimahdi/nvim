@@ -91,3 +91,10 @@ vim.keymap.set("n", "<F11>", function()
     vim.o.concealcursor = "n"
   end
 end, { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "r", "o" })
+  end,
+})
