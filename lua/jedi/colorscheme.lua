@@ -13,6 +13,15 @@ local transparent = {
 vim.api.nvim_set_hl(0, "Normal", transparent)
 vim.api.nvim_set_hl(0, "NonText", transparent)
 vim.api.nvim_set_hl(0, "SignColumn", transparent)
+vim.api.nvim_set_hl(0, "Search", {
+  bg = "#292e36",
+})
+vim.api.nvim_set_hl(0, "CurSearch", {
+  bg = "#30353d",
+})
+vim.api.nvim_set_hl(0, "IncSearch", {
+  bg = "#363d47",
+})
 
 -- set sign
 -- vim.cmd("sign define DiagnosticSignError text=  linehl= texthl=DiagnosticSignError numhl=")

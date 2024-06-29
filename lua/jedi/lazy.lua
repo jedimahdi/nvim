@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require("lazy").setup({
-  -- "folke/tokyonight.nvim",
+  "folke/tokyonight.nvim",
   -- { "catppuccin/nvim", name = "catppuccin" },
   "nvimtools/none-ls.nvim",
   "tamago324/lir.nvim",
@@ -27,6 +27,7 @@ require("lazy").setup({
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
   "tpope/vim-surround",
+  "tpope/vim-abolish",
   -- "romainl/vim-cool",
   "kyazdani42/nvim-web-devicons",
   -- "tjdevries/ocaml.nvim",

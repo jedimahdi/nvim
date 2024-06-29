@@ -8,6 +8,9 @@ local nmap = Remap.nmap
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+vim.keymap.set("n", "<C-S>", ":%s/")
+vim.keymap.set("v", "<C-S>", ":s/")
+
 inoremap("<C-H>", "<C-w>")
 
 vim.keymap.set({ "n", "x" }, "c", '"_c')
@@ -29,7 +32,6 @@ vim.keymap.set("i", "<C-D>", "<DEL>")
 -- nnoremap("<leader>e", ":Ex<CR>")
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vnoremap("K", ":m '<-2<CR>gv=gv")
-
 vnoremap("J", ":m '>+1<CR>gv=gv")
 
 nnoremap("Y", "yg$")
