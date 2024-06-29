@@ -6,11 +6,14 @@ local action_layout = require("telescope.actions.layout")
 telescope.setup({
   defaults = {
     winblend = 0,
+    border = false,
     layout_config = {
-      width = 0.95,
-      height = 0.95,
-      prompt_position = "bottom",
+      preview_cutoff = 1,
+      width = 0.99,
+      height = 0.99,
     },
+    sorting_strategy = "descending",
+    prompt_position = "bottom",
     selection_strategy = "reset",
     scroll_strategy = "cycle",
     color_devicons = true,
@@ -65,10 +68,10 @@ telescope.setup({
 require("telescope").load_extension("fzf")
 
 vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
 vim.keymap.set("n", "<leader>F", builtin.git_files, { desc = "Search Git Files" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "[ ] Find existing buffers" })
 vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 vim.keymap.set("n", "<leader>x", builtin.commands, { desc = "Commands" })
