@@ -28,14 +28,9 @@ require("lazy").setup({
   "windwp/nvim-ts-autotag",
   "tpope/vim-surround",
   "tpope/vim-abolish",
-  -- "romainl/vim-cool",
   "kyazdani42/nvim-web-devicons",
   -- "tjdevries/ocaml.nvim",
   "purescript-contrib/purescript-vim",
-  -- {
-  --   "mrcjkb/haskell-tools.nvim",
-  --   version = "^3",
-  -- },
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -46,11 +41,10 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  { -- Highlight, edit, and navigate code
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-treesitter/playground",
     },
   },
   { -- LSP Configuration & Plugins
@@ -72,34 +66,6 @@ require("lazy").setup({
       "saadparwaiz1/cmp_luasnip",
     },
   },
-  -- {
-  --   "nvim-neorg/neorg",
-  --   build = ":Neorg sync-parsers",
-  --   lazy = false,
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   config = function()
-  --     require("neorg").setup({
-  --       load = {
-  --         ["core.defaults"] = {}, -- Loads default behaviour
-  --         ["core.concealer"] = {}, -- Adds pretty icons to your documents
-  --         ["core.summary"] = {},
-  --         ["core.completion"] = {
-  --           config = {
-  --             engine = "nvim-cmp",
-  --           },
-  --         },
-  --         ["core.dirman"] = { -- Manages Neorg workspaces
-  --           config = {
-  --             workspaces = {
-  --               notes = "~/tmp/norg",
-  --             },
-  --           },
-  --         },
-  --         ["core.export"] = {},
-  --       },
-  --     })
-  --   end,
-  -- },
   -- { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
   -- "theHamsta/nvim-dap-virtual-text",
   {
@@ -114,30 +80,4 @@ require("lazy").setup({
   --   require 'colorizer'.setup()
   -- end
   -- }
-  -- {
-  --   "folke/noice.nvim",
-  --   config = function()
-  --     require("noice").setup({
-  --       lsp = {
-  --         progress = {
-  --           enabled = false,
-  --         },
-  --         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-  --         override = {
-  --           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-  --           ["vim.lsp.util.stylize_markdown"] = true,
-  --           ["cmp.entry.get_documentation"] = true,
-  --         },
-  --       },
-  --     })
-  --   end,
-  --   dependencies = {
-  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --     "MunifTanjim/nui.nvim",
-  --     -- OPTIONAL:
-  --     --   `nvim-notify` is only needed, if you want to use the notification view.
-  --     --   If not available, we use `mini` as the fallback
-  --     "rcarriga/nvim-notify",
-  --   },
-  -- },
 })

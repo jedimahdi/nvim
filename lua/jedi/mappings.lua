@@ -54,11 +54,7 @@ vnoremap("<leader>d", '"_d')
 
 vnoremap("<leader>d", '"_d')
 
--- This is going to get me cancelled
 inoremap("<C-c>", "<Esc>")
-
--- nnoremap("Q", "<nop>")
--- nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 nnoremap("<C-n>", "<cmd>cnext<CR>zz")
 nnoremap("<C-p>", "<cmd>cprev<CR>zz")
@@ -66,14 +62,14 @@ nnoremap("<leader>k", "<cmd>lnext<CR>zz")
 nnoremap("<leader>j", "<cmd>lprev<CR>zz")
 
 nnoremap("<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
--- nnoremap("<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("v", "<leader>r", ":s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 nnoremap("<leader>w", "<cmd>silent update<CR>")
 nnoremap("<leader>q", "<cmd>silent xit<CR>")
 nnoremap("Q", "<cmd>xall<CR>")
 nnoremap("<leader><leader>", "<cmd>buffer#<CR>")
 
-nnoremap("<leader>z", "<cmd>TSPlaygroundToggle<CR>")
+nnoremap("<leader>z", "<cmd>InspectTree<CR>")
 
 -- Format
 nnoremap("<leader>p", function()
