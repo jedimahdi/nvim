@@ -44,18 +44,6 @@ nnoremap("J", "mzJ`z")
 -- greatest remap ever
 xnoremap("<leader>p", '"_dP')
 
--- next greatest remap ever : asbjornHaland
-nnoremap("<leader>y", '"+y')
-vnoremap("<leader>y", '"+y')
-nmap("<leader>Y", '"+Y')
-
-nnoremap("<leader>d", '"_d')
-vnoremap("<leader>d", '"_d')
-
-vnoremap("<leader>d", '"_d')
-
-inoremap("<C-c>", "<Esc>")
-
 nnoremap("<C-n>", "<cmd>cnext<CR>zz")
 nnoremap("<C-p>", "<cmd>cprev<CR>zz")
 nnoremap("<leader>k", "<cmd>lnext<CR>zz")
@@ -98,3 +86,11 @@ vim.keymap.set("n", "<M-k>", function()
     vim.cmd([[m .-2<CR>==]])
   end
 end)
+
+-- nnoremap("<leader>y", '"+y')
+-- vnoremap("<leader>y", '"+y')
+-- nmap("<leader>Y", '"+Y')
+-- nnoremap("<leader>d", '"_d')
+-- vnoremap("<leader>d", '"_d')
+-- vnoremap("<leader>d", '"_d')
+-- inoremap("<C-c>", "<Esc>")

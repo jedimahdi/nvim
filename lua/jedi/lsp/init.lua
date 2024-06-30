@@ -18,10 +18,10 @@ local on_attach = function(_, bufnr)
   end
 
   nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-  nmap("<leader>gr", vim.lsp.buf.rename, "Rename Symbol")
+  nmap("gn", vim.lsp.buf.rename, "Rename Symbol")
   nmap("ga", vim.lsp.buf.code_action, "Code Action")
   nmap("gd", vim.lsp.buf.definition, "Goto Definition")
-  nmap("<leader>di", vim.lsp.buf.implementation, "Goto Implementation")
+  nmap("gD", vim.lsp.buf.implementation, "Goto Implementation")
   nmap("gr", require("telescope.builtin").lsp_references, "References")
   nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
   nmap("<leader>dw", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")

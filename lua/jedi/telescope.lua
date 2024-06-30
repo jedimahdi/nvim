@@ -67,15 +67,16 @@ telescope.setup({
 
 require("telescope").load_extension("fzf")
 
-vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "[S]earch [F]iles" })
-vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", "<leader>F", builtin.git_files, { desc = "Search Git Files" })
-vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "[ ] Find existing buffers" })
-vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Telescope Find Files" })
+vim.keymap.set("n", "<leader>g", builtin.live_grep, { desc = "Telescope Live Grep" })
+vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Telescope Live Grep" })
+vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "Telescope Grep String" })
+vim.keymap.set("n", "<leader>F", builtin.git_files, { desc = "Telescope Search Git Files" })
+vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Search Help" })
+vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Telescope Buffers" })
+vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "Telescope Diagnostics" })
 vim.keymap.set("n", "<leader>x", builtin.commands, { desc = "Commands" })
-vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "Telescope Git Branches" })
+-- vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "Telescope Git Branches" })
 vim.keymap.set("n", "<leader>/", function()
   builtin.current_buffer_fuzzy_find({
     previewer = false,
