@@ -15,10 +15,29 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require("lazy").setup({
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+  {
+    "stevearc/oil.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
   "folke/tokyonight.nvim",
-  -- { "catppuccin/nvim", name = "catppuccin" },
   "nvimtools/none-ls.nvim",
-  "tamago324/lir.nvim",
+  -- "tamago324/lir.nvim",
   "mbbill/undotree",
   "ThePrimeagen/harpoon",
   "onsails/lspkind-nvim",
@@ -30,7 +49,7 @@ require("lazy").setup({
   "tpope/vim-abolish",
   "kyazdani42/nvim-web-devicons",
   -- "tjdevries/ocaml.nvim",
-  "purescript-contrib/purescript-vim",
+  -- "purescript-contrib/purescript-vim",
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -66,8 +85,8 @@ require("lazy").setup({
       "saadparwaiz1/cmp_luasnip",
     },
   },
-  -- { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
-  -- "theHamsta/nvim-dap-virtual-text",
+  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+  "theHamsta/nvim-dap-virtual-text",
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

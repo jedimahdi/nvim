@@ -89,8 +89,31 @@ vim.keymap.set("n", "<C-l>", function()
   move("l")
 end)
 
-vim.keymap.set("n", "<leader>tr", exec_project)
-vim.keymap.set("n", "<leader>tt", test_project)
+local run_command = function()
+  vim.ui.input({
+    prompt = "Command: ",
+    completion = "shellcmd",
+  }, function(command)
+    if command ~= nil then
+      send_tmux_cmd([[neww -n cargo bash -c "]] .. command .. [["]])
+    end
+  end)
+
+  -- vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+  -- local ft = vim.bo.ft
+  -- if ft == "rust" then
+  --   send_tmux_cmd([[neww -n cargo bash -c "cargo run -q; sleep 2"]])
+  -- end
+  -- if ft == "go" then
+  --   send_tmux_cmd([[neww -n go bash -c "go run .; sleep 2"]])
+  -- end
+  -- if ft == "haskell" then
+  --   send_tmux_cmd([[neww -n cabal bash -c "cabal run -v0"]])
+  -- end
+end
+
+vim.keymap.set("n", "<leader>tt", run_command)
+-- vim.keymap.set("n", "<leader>tt", test_project)
 -- u.nmap("<leader>te", ":lua require'config.tmux'.exec_project()<CR>")
 -- u.nmap("<leader>tt", ":lua require'config.tmux'.test_project()<CR>")
 -- u.nmap("<leader>tb", ":lua require'config.tmux'.build_project()<CR>")

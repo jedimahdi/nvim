@@ -1,6 +1,7 @@
 local lspconfig = require("lspconfig")
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
+  -- client.server_capabilities.semanticTokensProvider = nil
   local nmap = function(keys, func, desc)
     if desc then
       desc = "LSP: " .. desc
@@ -40,7 +41,7 @@ capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 capabilities.textDocument.codeLens = { dynamicRegistration = false }
 capabilities.offsetEncoding = { "utf-16" }
 
-local servers = { "jsonls", "html", "bashls", "gopls", "ocamllsp", "zls", "clangd" }
+local servers = { "gopls", "ocamllsp", "zls", "clangd" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
@@ -54,21 +55,21 @@ lspconfig.hls.setup({
   capabilities = capabilities,
 })
 
-lspconfig.nil_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    ["nil"] = {
-      nix = {
-        -- maxMemoryMB = 7680,
-        flake = {
-          autoArchive = false,
-          autoEvalInputs = false,
-        },
-      },
-    },
-  },
-})
+-- lspconfig.nil_ls.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   settings = {
+--     ["nil"] = {
+--       nix = {
+--         -- maxMemoryMB = 7680,
+--         flake = {
+--           autoArchive = false,
+--           autoEvalInputs = false,
+--         },
+--       },
+--     },
+--   },
+-- })
 
 require("typescript-tools").setup({
   on_attach = on_attach,
