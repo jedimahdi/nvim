@@ -67,7 +67,11 @@ telescope.setup({
 
 require("telescope").load_extension("fzf")
 
-vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Telescope Find Files" })
+vim.keymap.set("n", "<leader>f", function()
+  builtin.find_files({
+    find_command = { "rg", "--files", "--hidden", "-g", "!node_modules/", "-g", "!.git/", "-g", "!target/" },
+  })
+end, { desc = "Telescope Find Files" })
 vim.keymap.set("n", "<leader>F", function()
   builtin.find_files({ search_dirs = { vim.fn.expand("%:p:h") } })
 end, { desc = "Telescope Search Files Current Directory" })
