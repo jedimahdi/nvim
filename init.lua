@@ -13,6 +13,7 @@ require("jedi.harpoon")
 require("jedi.tmux")
 require("jedi.null")
 require("jedi.dap")
+require("jedi.oil")
 
 require("Comment").setup()
 require("nvim-autopairs").setup({
