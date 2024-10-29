@@ -19,19 +19,6 @@ vim.o.termguicolors = true
 
 require("lazy").setup({
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {},
-    -- stylua: ignore
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
-  },
-  {
     "stevearc/oil.nvim",
     opts = {},
     -- Optional dependencies
@@ -39,6 +26,7 @@ require("lazy").setup({
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
   "folke/tokyonight.nvim",
+  -- { "catppuccin/nvim", name = "catppuccin" },
   "nvimtools/none-ls.nvim",
   -- "tamago324/lir.nvim",
   "mbbill/undotree",
@@ -98,8 +86,10 @@ require("lazy").setup({
       vim.fn["mkdp#util#install"]()
     end,
   },
-  -- { "norcalli/nvim-colorizer.lua" , config = function()
-  --   require 'colorizer'.setup()
-  -- end
-  -- }
+  -- {
+  --   "norcalli/nvim-colorizer.lua",
+  --   config = function()
+  --     require("colorizer").setup()
+  --   end,
+  -- },
 })
