@@ -41,7 +41,7 @@ capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 capabilities.textDocument.codeLens = { dynamicRegistration = false }
 capabilities.offsetEncoding = { "utf-16" }
 
-local servers = { "gopls", "ocamllsp", "zls", "clangd" }
+local servers = { "gopls", "ocamllsp", "zls", "clangd", "tailwindcss" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({

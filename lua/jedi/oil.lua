@@ -3,7 +3,10 @@ vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open parent directory
 require("oil").setup({
   default_file_explorer = true,
   view_options = {
-    show_hidden = true,
+    show_hidden = false,
+    is_hidden_file = function(name, _)
+      return vim.startswith(name, "..")
+    end,
   },
   keymaps = {
     ["g?"] = "actions.show_help",

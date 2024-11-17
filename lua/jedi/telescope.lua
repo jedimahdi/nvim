@@ -69,7 +69,21 @@ require("telescope").load_extension("fzf")
 
 vim.keymap.set("n", "<leader>f", function()
   builtin.find_files({
-    find_command = { "rg", "--files", "--hidden", "-g", "!node_modules/", "-g", "!.git/", "-g", "!target/" },
+    find_command = {
+      "rg",
+      "--files",
+      "--hidden",
+      "-g",
+      "!node_modules/",
+      "-g",
+      "!.git/",
+      "-g",
+      "!target/",
+      "-g",
+      "!Cargo.lock",
+      "-g",
+      "!package-lock.json",
+    },
   })
 end, { desc = "Telescope Find Files" })
 vim.keymap.set("n", "<leader>F", function()

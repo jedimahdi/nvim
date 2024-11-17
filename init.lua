@@ -19,6 +19,7 @@ require("Comment").setup()
 require("nvim-autopairs").setup({
   disable_filetype = { "TelescopePrompt" },
 })
+require("nvim-ts-autotag").setup()
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
