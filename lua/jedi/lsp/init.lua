@@ -41,7 +41,7 @@ capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 capabilities.textDocument.codeLens = { dynamicRegistration = false }
 capabilities.offsetEncoding = { "utf-16" }
 
-local servers = { "gopls", "ocamllsp", "zls", "clangd", "tailwindcss" }
+local servers = { "gopls", "ocamllsp", "zls", "clangd" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
@@ -100,23 +100,23 @@ lspconfig.purescriptls.setup({
   },
 })
 
-lspconfig.rust_analyzer.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      underline = false,
-      virtual_text = true,
-    }),
-  },
-  settings = {
-    ["rust-analyzer"] = {
-      check = {
-        ignore = { "dead_code", "unused_imports", "unused_variables" },
-      },
-    },
-  },
-})
+-- lspconfig.rust_analyzer.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   handlers = {
+--     ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+--       underline = false,
+--       virtual_text = true,
+--     }),
+--   },
+--   settings = {
+--     ["rust-analyzer"] = {
+--       check = {
+--         ignore = { "dead_code", "unused_imports", "unused_variables" },
+--       },
+--     },
+--   },
+-- })
 
 lspconfig.lua_ls.setup({
   on_attach = on_attach,

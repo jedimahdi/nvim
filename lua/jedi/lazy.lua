@@ -21,9 +21,7 @@ require("lazy").setup({
   {
     "stevearc/oil.nvim",
     opts = {},
-    -- Optional dependencies
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   "folke/tokyonight.nvim",
   -- { "catppuccin/nvim", name = "catppuccin" },

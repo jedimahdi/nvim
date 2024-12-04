@@ -29,46 +29,10 @@ vim.keymap.set("n", "<leader>lc", "<cmd>DapContinue<CR>", { desc = "Continue" })
 vim.keymap.set("n", "<leader>lb", "<cmd>DapToggleBreakpoint<CR>", { desc = "Debug Breakpoint" })
 vim.keymap.set("n", "<leader>lr", "<cmd>DapContinue<CR>", { desc = "Run Breakpoint" })
 
-dap.adapters["pwa-node"] = {
-  type = "server",
-  host = "localhost",
-  port = "8123",
-  executable = {
-    command = "node",
-    args = { "/home/mahdi/tmp/js-debug/src/dapDebugServer.js", "8123" },
-  },
-}
-dap.configurations.javascript = {
-  {
-    type = "pwa-node",
-    request = "launch",
-    name = "Launch file",
-    program = "${file}",
-    cwd = "${workspaceFolder}",
-    runtimeExecutable = "node",
-  },
-}
-dap.configurations.typescript = {
-  {
-    type = "pwa-node",
-    request = "launch",
-    name = "Launch file",
-    runtimeExecutable = "deno",
-    runtimeArgs = {
-      "run",
-      "--inspect-wait",
-      "--allow-all",
-    },
-    program = "${file}",
-    cwd = "${workspaceFolder}",
-    attachSimplePort = 9229,
-  },
-}
-
 dap.adapters.gdb = {
   type = "executable",
   command = "gdb",
-  args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+  args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
 }
 
 dap.configurations.c = {
@@ -77,7 +41,7 @@ dap.configurations.c = {
     type = "gdb",
     request = "launch",
     program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
     end,
     cwd = "${workspaceFolder}",
     stopAtBeginningOfMainSubprogram = false,
@@ -87,80 +51,22 @@ dap.configurations.c = {
     type = "gdb",
     request = "attach",
     program = function()
-       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
     end,
     pid = function()
-       local name = vim.fn.input('Executable name (filter): ')
-       return require("dap.utils").pick_process({ filter = name })
+      local name = vim.fn.input("Executable name (filter): ")
+      return require("dap.utils").pick_process({ filter = name })
     end,
-    cwd = '${workspaceFolder}'
+    cwd = "${workspaceFolder}",
   },
   {
-    name = 'Attach to gdbserver :1234',
-    type = 'gdb',
-    request = 'attach',
-    target = 'localhost:1234',
+    name = "Attach to gdbserver :1234",
+    type = "gdb",
+    request = "attach",
+    target = "localhost:1234",
     program = function()
-       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
     end,
-    cwd = '${workspaceFolder}'
+    cwd = "${workspaceFolder}",
   },
 }
-
-dap.adapters.haskell = {
-  type = "executable",
-  command = "haskell-debug-adapter",
-  args = { "--hackage-version=0.0.33.0" },
-}
-dap.configurations.haskell = {
-  {
-    type = "haskell",
-    request = "launch",
-    name = "Debug",
-    workspace = "${workspaceFolder}",
-    startup = "${file}",
-    stopOnEntry = true,
-    logFile = vim.fn.stdpath("data") .. "/haskell-dap.log",
-    logLevel = "WARNING",
-    ghciEnv = vim.empty_dict(),
-    ghciPrompt = "λ: ",
-    -- Adjust the prompt to the prompt you see when you invoke the stack ghci command below
-    ghciInitialPrompt = "λ: ",
-    ghciCmd = "cabal exec -- ghci-dap --interactive -i -i${workspaceFolder}/src",
-  },
-}
-
--- dap.adapters.lldb = {
---   type = "executable",
---   command = "/usr/bin/lldb-vscode", -- adjust as needed, must be absolute path
---   name = "lldb",
--- }
-
--- dap.configurations.c = {
---   {
---     name = "Launch",
---     type = "lldb",
---     request = "launch",
---     program = function()
---       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
---     end,
---     cwd = "${workspaceFolder}",
---     stopOnEntry = false,
---     args = {},
---
---     -- 💀
---     -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
---     --
---     --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
---     --
---     -- Otherwise you might get the following error:
---     --
---     --    Error on launch: Failed to attach to the target process
---     --
---     -- But you should be aware of the implications:
---     -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
---     -- runInTerminal = false,
---   },
--- }
-
--- dap.configurations.cpp = dap.configurations.c
