@@ -24,6 +24,7 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   "folke/tokyonight.nvim",
+  -- "rebelot/kanagawa.nvim",
   -- { "catppuccin/nvim", name = "catppuccin" },
   "nvimtools/none-ls.nvim",
   -- "tamago324/lir.nvim",
@@ -39,10 +40,10 @@ require("lazy").setup({
   "kyazdani42/nvim-web-devicons",
   -- "tjdevries/ocaml.nvim",
   -- "purescript-contrib/purescript-vim",
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  -- },
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",

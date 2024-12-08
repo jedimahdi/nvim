@@ -41,7 +41,7 @@ capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 capabilities.textDocument.codeLens = { dynamicRegistration = false }
 capabilities.offsetEncoding = { "utf-16" }
 
-local servers = { "gopls", "ocamllsp", "zls", "clangd" }
+local servers = { "gopls", "zls", "clangd", "ts_ls" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
@@ -50,10 +50,10 @@ for _, lsp in ipairs(servers) do
   })
 end
 
-lspconfig.hls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+-- lspconfig.hls.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- })
 
 -- lspconfig.nil_ls.setup({
 --   on_attach = on_attach,
@@ -71,34 +71,34 @@ lspconfig.hls.setup({
 --   },
 -- })
 
-require("typescript-tools").setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    tsserver_file_preferences = {
-      disableSuggestions = true,
-    },
-  },
-})
+-- require("typescript-tools").setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   settings = {
+--     tsserver_file_preferences = {
+--       disableSuggestions = true,
+--     },
+--   },
+-- })
 
-lspconfig.purescriptls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    purescript = {
-      addSpagoSources = true,
-      censorWarnings = {
-        "ImplicitImport",
-        "UnusedExplicitImport",
-        "UnusedImport",
-      },
-      formatter = "purs-tidy",
-    },
-  },
-  flags = {
-    debounce_text_changes = 150,
-  },
-})
+-- lspconfig.purescriptls.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   settings = {
+--     purescript = {
+--       addSpagoSources = true,
+--       censorWarnings = {
+--         "ImplicitImport",
+--         "UnusedExplicitImport",
+--         "UnusedImport",
+--       },
+--       formatter = "purs-tidy",
+--     },
+--   },
+--   flags = {
+--     debounce_text_changes = 150,
+--   },
+-- })
 
 -- lspconfig.rust_analyzer.setup({
 --   on_attach = on_attach,
@@ -124,7 +124,7 @@ lspconfig.lua_ls.setup({
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
-      if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+      if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
         return
       end
     end
@@ -141,10 +141,10 @@ lspconfig.lua_ls.setup({
         library = {
           vim.env.VIMRUNTIME,
           -- Depending on the usage, you might want to add additional paths here.
-          -- "${3rd}/luv/library"
+          "${3rd}/luv/library"
           -- "${3rd}/busted/library",
         },
-        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
         -- library = vim.api.nvim_get_runtime_file("", true)
       },
     })
