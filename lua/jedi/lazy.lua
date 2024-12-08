@@ -23,23 +23,19 @@ require("lazy").setup({
     opts = {},
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  "navarasu/onedark.nvim",
   "folke/tokyonight.nvim",
-  -- "rebelot/kanagawa.nvim",
   -- { "catppuccin/nvim", name = "catppuccin" },
+
   "nvimtools/none-ls.nvim",
-  -- "tamago324/lir.nvim",
-  "mbbill/undotree",
   "ThePrimeagen/harpoon",
   "onsails/lspkind-nvim",
-  "navarasu/onedark.nvim",
   "numToStr/Comment.nvim",
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
   "tpope/vim-surround",
-  "tpope/vim-abolish",
+  -- "tpope/vim-abolish",
   "kyazdani42/nvim-web-devicons",
-  -- "tjdevries/ocaml.nvim",
-  -- "purescript-contrib/purescript-vim",
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -59,12 +55,7 @@ require("lazy").setup({
   { -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
   },
-  {
-    "L3MON4D3/LuaSnip",
-    version = "v2.*",
-    -- install jsregexp (optional!).
-    build = "make install_jsregexp",
-  },
+  { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
   { -- Autocompletion
     "hrsh7th/nvim-cmp",
     dependencies = {

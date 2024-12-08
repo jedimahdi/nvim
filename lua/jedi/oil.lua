@@ -5,7 +5,8 @@ require("oil").setup({
   view_options = {
     show_hidden = false,
     is_hidden_file = function(name, _)
-      return vim.startswith(name, "..")
+      local folder_skip = { "dev-tools.locks", "dune.lock", "_build", "..", ".git" }
+      return vim.tbl_contains(folder_skip, name)
     end,
   },
   keymaps = {

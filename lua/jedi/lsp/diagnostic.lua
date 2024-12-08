@@ -36,7 +36,7 @@ vim.keymap.set("n", "]d", function()
   })
 end)
 vim.keymap.set("n", "<leader>a", function()
-  vim.diagnostic.open_float(0, {
+  vim.diagnostic.open_float({
     scope = "line",
   })
 end)
