@@ -101,7 +101,7 @@ vim.keymap.set("n", "<leader>sf", builtin.git_files, { desc = "Telescope Search 
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Search Help" })
 vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Telescope Buffers" })
 vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "Telescope Diagnostics" })
-vim.keymap.set("n", "<leader>x", builtin.commands, { desc = "Commands" })
+-- vim.keymap.set("n", "<leader>x", builtin.commands, { desc = "Commands" })
 vim.keymap.set("n", "<leader>sb", builtin.git_branches, { desc = "Telescope Git Branches" })
 vim.keymap.set("n", "<leader>/", function()
   builtin.current_buffer_fuzzy_find({

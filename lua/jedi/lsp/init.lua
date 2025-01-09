@@ -62,6 +62,7 @@ local servers = {
     },
     init_options = { clangdFileStatus = true },
   },
+  -- tailwindcss = true,
 }
 
 for name, config in pairs(servers) do
