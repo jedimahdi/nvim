@@ -66,7 +66,7 @@ nnoremap("<leader>z", "<cmd>InspectTree<CR>")
 nnoremap("<leader>p", function()
   vim.lsp.buf.format({
     filter = function(client)
-      return client.name == "null-ls" or client.name == "rust_analyzer"
+      return client.name == "null-ls" or client.name == "rust_analyzer" or client.name == "ols"
     end,
   })
 end)

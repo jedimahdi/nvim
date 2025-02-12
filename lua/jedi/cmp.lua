@@ -16,8 +16,7 @@ lspkind.init({})
 cmp.setup({
   snippet = {
     expand = function(args)
-      -- ls.lsp_expand(args.body)
-      vim.snippet.expand(args.body)
+      ls.lsp_expand(args.body)
     end,
   },
   preselect = cmp.PreselectMode.None,
@@ -74,39 +73,9 @@ cmp.setup.cmdline(":", {
   matching = { disallow_symbol_nonprefix_matching = false },
 })
 
-vim.snippet.expand = ls.lsp_expand
-
----@diagnostic disable-next-line: duplicate-set-field
-vim.snippet.active = function(filter)
-  filter = filter or {}
-  filter.direction = filter.direction or 1
-
-  if filter.direction == 1 then
-    return ls.expand_or_jumpable()
-  else
-    return ls.jumpable(filter.direction)
-  end
-end
-
----@diagnostic disable-next-line: duplicate-set-field
-vim.snippet.jump = function(direction)
-  if direction == 1 then
-    if ls.expandable() then
-      return ls.expand_or_jump()
-    else
-      return ls.jumpable(1) and ls.jump(1)
-    end
-  else
-    return ls.jumpable(-1) and ls.jump(-1)
-  end
-end
-
-vim.snippet.stop = ls.unlink_current
-
 ls.config.set_config({
-  history = true,
+  history = false,
   updateevents = "TextChanged,TextChangedI",
-  override_builtin = true,
 })
 
 for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/jedi/snippets/*.lua", true)) do
@@ -114,9 +83,13 @@ for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/jedi/snippets/*.lua"
 end
 
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
-  return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
+  if ls.expand_or_jumpable() then
+    ls.expand_or_jump()
+  end
 end, { silent = true })
 
 vim.keymap.set({ "i", "s" }, "<c-l>", function()
-  return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
+  if ls.jumpable(-1) then
+    ls.jump(-1)
+  end
 end, { silent = true })
