@@ -68,14 +68,14 @@ require("lazy").setup({
   },
   { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
   "theHamsta/nvim-dap-virtual-text",
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-  },
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  --   ft = { "markdown" },
+  --   build = function()
+  --     vim.fn["mkdp#util#install"]()
+  --   end,
+  -- },
   -- {
   --   "norcalli/nvim-colorizer.lua",
   --   config = function()
