@@ -1,4 +1,6 @@
 local lspconfig = require("lspconfig")
+local utils = require("jedi.utils")
+local fn = utils.fn
 
 local capabilities = nil
 if pcall(require, "cmp_nvim_lsp") then
@@ -91,7 +93,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+    vim.keymap.set("n", "K", fn(vim.lsp.buf.hover, { silent = true }), { buffer = 0 })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
     vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })

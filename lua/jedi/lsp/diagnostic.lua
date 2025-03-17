@@ -22,17 +22,27 @@ local get_highest_error_severity = function()
 end
 
 vim.keymap.set("n", "[d", function()
-  vim.diagnostic.goto_prev({
+  local diags = vim.diagnostic.get(0, {})
+  if #diags <= 0 then
+    return
+  end
+  vim.diagnostic.jump({
     severity = get_highest_error_severity(),
     wrap = true,
     float = true,
+    count = -1,
   })
 end)
 vim.keymap.set("n", "]d", function()
-  vim.diagnostic.goto_next({
+  local diags = vim.diagnostic.get(0, {})
+  if #diags <= 0 then
+    return
+  end
+  vim.diagnostic.jump({
     severity = get_highest_error_severity(),
     wrap = true,
     float = true,
+    count = 1,
   })
 end)
 vim.keymap.set("n", "<leader>a", function()
