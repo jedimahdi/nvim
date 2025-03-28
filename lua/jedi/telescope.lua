@@ -69,6 +69,7 @@ require("telescope").load_extension("fzf")
 
 vim.keymap.set("n", "<leader>f", function()
   builtin.find_files({
+    previewer = false,
     find_command = {
       "rg",
       "--files",
