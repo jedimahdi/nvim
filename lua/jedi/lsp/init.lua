@@ -33,6 +33,21 @@ local servers = {
     settings = {
       Lua = {},
     },
+    -- settings = {
+    --   Lua = {
+    --     runtime = {
+    --       version = "LuaJIT", -- Use LuaJIT for Neovim
+    --     },
+    --     diagnostics = {
+    --       globals = { "vim" }, -- Recognize the `vim` global variable
+    --     },
+    --     workspace = {
+    --       library = vim.api.nvim_get_runtime_file("", true), -- Make LSP aware of Neovim runtime files
+    --       checkThirdParty = false, -- Prevent third-party provider prompts
+    --     },
+    --     telemetry = { enable = false }, -- Disable telemetry
+    --   },
+    -- },
     server_capabilities = {
       semanticTokensProvider = vim.NIL,
     },

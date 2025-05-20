@@ -24,8 +24,9 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   "navarasu/onedark.nvim",
-  "folke/tokyonight.nvim",
+  -- "folke/tokyonight.nvim",
   -- { "catppuccin/nvim", name = "catppuccin" },
+  -- { "rose-pine/neovim", name = "rose-pine" },
 
   "nvimtools/none-ls.nvim",
   "ThePrimeagen/harpoon",
@@ -68,15 +69,15 @@ require("lazy").setup({
   },
   { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
   "theHamsta/nvim-dap-virtual-text",
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && npm install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
-  },
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  --   build = "cd app && npm install",
+  --   init = function()
+  --     vim.g.mkdp_filetypes = { "markdown" }
+  --   end,
+  --   ft = { "markdown" },
+  -- },
   -- {
   --   "norcalli/nvim-colorizer.lua",
   --   config = function()

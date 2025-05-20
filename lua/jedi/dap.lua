@@ -64,6 +64,7 @@ vim.keymap.set("n", "<leader>lc", "<cmd>DapContinue<CR>", { desc = "Continue" })
 
 vim.keymap.set("n", "<leader>lb", "<cmd>DapToggleBreakpoint<CR>", { desc = "Debug Breakpoint" })
 vim.keymap.set("n", "<leader>lB", "<cmd>DapClearBreakpoints<CR>", { desc = "Clear Debug Breakpoints" })
+vim.keymap.set("n", "<leader>la", "<cmd>DapTerminate<CR> <BAR> <cmd>DapClearBreakpoints<CR>", { desc = "Terminate and Clear Breakpoints", silent = true })
 vim.keymap.set("n", "<leader>lr", "<cmd>DapContinue<CR>", { desc = "Run Breakpoint" })
 vim.keymap.set("n", "<leader>ls", "<cmd>DapTerminate<CR>", { desc = "Terminate Debugger" })
 
@@ -87,22 +88,22 @@ local function get_program()
   end
 
   -- Fallback: Look for a source file with "main" function
-  local files = vim.fn.glob(cwd .. "/*.{c,cpp}", true, true)
-  for _, file in ipairs(files) do
-    local content = table.concat(vim.fn.readfile(file), "\n")
-    if content:match("main%s*%(") then
-      -- Assume the executable name matches the source file (without extension)
-      local exec_name = vim.fn.fnamemodify(file, ":t:r")
-      local exec_path = cwd .. "/" .. exec_name
-      if vim.fn.filereadable(exec_path) == 1 then
-        return exec_path
-      else
-        -- If no executable exists, return the source file and warn user
-        vim.notify("No compiled executable found for " .. file .. ". Compile it first.", vim.log.levels.WARN)
-        return file
-      end
-    end
-  end
+  -- local files = vim.fn.glob(cwd .. "/*.{c,cpp}", true, true)
+  -- for _, file in ipairs(files) do
+  --   local content = table.concat(vim.fn.readfile(file), "\n")
+  --   if content:match("main%s*%(") then
+  --     -- Assume the executable name matches the source file (without extension)
+  --     local exec_name = vim.fn.fnamemodify(file, ":t:r")
+  --     local exec_path = cwd .. "/" .. exec_name
+  --     if vim.fn.filereadable(exec_path) == 1 then
+  --       return exec_path
+  --     else
+  --       -- If no executable exists, return the source file and warn user
+  --       vim.notify("No compiled executable found for " .. file .. ". Compile it first.", vim.log.levels.WARN)
+  --       return file
+  --     end
+  --   end
+  -- end
 
   -- Final fallback: Prompt user if nothing is found
   return vim.fn.input("Path to executable: ", cwd .. "/", "file")

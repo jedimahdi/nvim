@@ -112,6 +112,39 @@ local run_command = function()
   -- end
 end
 
+local function build_project()
+  -- Create a new split window for the terminal
+  -- vim.cmd("split")
+  -- -- Start the build process (you can replace 'make' with your own build command)
+  -- local job_id = vim.fn.jobstart('make', {
+  --   on_stdout = function(_, data)
+  --     if data then
+  --       -- If successful, close the window immediately
+  --       vim.cmd("close")
+  --     end
+  --   end,
+  --   on_exit = function(_, exit_code)
+  --     -- if exit_code ~= 0 then
+  --     --   -- If failed, wait for 2 seconds and then close the window
+  --     --   vim.defer_fn(function()
+  --     --     vim.cmd("close")
+  --     --   end, 2000)
+  --     -- end
+  --   end,
+  -- })
+  local pane_id = vim.fn.system("tmux split-window -P -F '#{pane_id}' -dh -p 30") -- Open a vertical tmux pane
+  pane_id = pane_id:gsub("\n", "") -- Remove newlines from the output
+
+  local command = "make; if [ $? -eq 0 ]; then tmux kill-pane -t "
+    .. pane_id
+    .. "; else sleep 2; tmux kill-pane -t "
+    .. pane_id
+    .. "; fi"
+  vim.fn.system("tmux send-keys -t " .. pane_id .. " '" .. command .. "' Enter")
+end
+
+vim.keymap.set("n", "<leader>tr", build_project, { noremap = true, silent = true })
+
 vim.keymap.set("n", "<leader>tt", run_command)
 -- vim.keymap.set("n", "<leader>tt", test_project)
 -- u.nmap("<leader>te", ":lua require'config.tmux'.exec_project()<CR>")

@@ -86,6 +86,8 @@ vim.keymap.set("n", "<leader>f", function()
       "!package-lock.json",
       "-g",
       "!lazy-lock.json",
+      "-g",
+      "!assets/",
     },
   })
 end, { desc = "Telescope Find Files" })
