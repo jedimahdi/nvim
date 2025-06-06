@@ -9,34 +9,16 @@ end
 
 local servers = {
   lua_ls = {
-    on_init = function(client)
-      if client.workspace_folders then
-        local path = client.workspace_folders[1].name
-        if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-          return
-        end
-      end
-
-      client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-        runtime = {
-          version = "LuaJIT",
-        },
-        workspace = {
-          checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME,
-            "${3rd}/luv/library",
-          },
-        },
-      })
-    end,
     settings = {
       Lua = {
+        diagnostics = {
+          globals = {
+            "vim",
+            "require",
+          },
+        },
         telemetry = { enable = false },
       },
-    },
-    server_capabilities = {
-      semanticTokensProvider = vim.NIL,
     },
   },
   gopls = {
@@ -60,7 +42,8 @@ local servers = {
     },
   },
   clangd = {
-    init_options = { clangdFileStatus = true },
+    cmd = { "clangd", "--log=error" },
+    init_options = { clangdFileStatus = false },
   },
   ols = true,
 }
