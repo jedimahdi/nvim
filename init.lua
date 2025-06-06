@@ -10,7 +10,6 @@ require("jedi.treesitter")
 require("jedi.cmp")
 require("jedi.harpoon")
 require("jedi.tmux")
-require("jedi.null")
 require("jedi.dap")
 require("jedi.oil")
 

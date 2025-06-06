@@ -14,7 +14,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Fixes Notify opacity issues
 vim.o.termguicolors = true
 
 require("lazy").setup({
@@ -28,7 +27,7 @@ require("lazy").setup({
   -- { "catppuccin/nvim", name = "catppuccin" },
   -- { "rose-pine/neovim", name = "rose-pine" },
 
-  "nvimtools/none-ls.nvim",
+  -- "nvimtools/none-ls.nvim",
   "ThePrimeagen/harpoon",
   "onsails/lspkind-nvim",
   "numToStr/Comment.nvim",
@@ -37,10 +36,6 @@ require("lazy").setup({
   "tpope/vim-surround",
   -- "tpope/vim-abolish",
   "kyazdani42/nvim-web-devicons",
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  -- },
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
@@ -53,11 +48,11 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
   },
-  { -- LSP Configuration & Plugins
+  {
     "neovim/nvim-lspconfig",
   },
   { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
-  { -- Autocompletion
+  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
@@ -69,6 +64,20 @@ require("lazy").setup({
   },
   { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
   "theHamsta/nvim-dap-virtual-text",
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        c = { "clang-format" },
+        lua = { "stylua" },
+        sh = { "shfmt" },
+        rust = { "rustfmt", lsp_format = "fallback" },
+        go = { "goimports", "gofmt" },
+        javascript = { "prettier" },
+        json = { "prettier" },
+      },
+    },
+  },
   -- {
   --   "iamcco/markdown-preview.nvim",
   --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

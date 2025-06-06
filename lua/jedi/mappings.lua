@@ -64,11 +64,7 @@ nnoremap("<leader>z", "<cmd>InspectTree<CR>")
 
 -- Format
 nnoremap("<leader>p", function()
-  vim.lsp.buf.format({
-    filter = function(client)
-      return client.name == "null-ls" or client.name == "rust_analyzer" or client.name == "ols"
-    end,
-  })
+  require("conform").format({})
 end)
 
 nnoremap("<leader>n", "<cmd>nohls<CR>")
