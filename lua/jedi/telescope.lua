@@ -6,14 +6,14 @@ local action_layout = require("telescope.actions.layout")
 telescope.setup({
   defaults = {
     winblend = 0,
-    border = false,
+    border = true,
     layout_config = {
       preview_cutoff = 1,
       width = 0.99,
       height = 0.99,
     },
     sorting_strategy = "descending",
-    prompt_position = "bottom",
+    prompt_position = "top",
     selection_strategy = "reset",
     scroll_strategy = "cycle",
     color_devicons = true,

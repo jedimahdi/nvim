@@ -33,7 +33,7 @@ vim.keymap.set("c", "<C-A>", "<HOME>")
 vim.keymap.set("i", "<C-D>", "<DEL>")
 
 -- nnoremap("<leader>e", ":Ex<CR>")
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+-- vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vnoremap("K", ":m '<-2<CR>gv=gv")
 vnoremap("J", ":m '>+1<CR>gv=gv")
 
