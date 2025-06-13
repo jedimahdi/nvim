@@ -9,11 +9,13 @@ fzf.setup({
   fzf_colors = {
     false,
   },
+  defaults = { git_icons = false, file_icons = false },
   winopts = {
     width = 0.9,
     height = 0.9,
     border = { "", "", "", "", "", "", "", "" },
     preview = {
+      hidden = true,
       border = { "", "", "", "", "", "", "", "" },
       winopts = {
         number = false,
@@ -28,9 +30,7 @@ fzf.setup({
   blines = { _treesitter = false },
 })
 
-vim.keymap.set("n", "<leader>f", function()
-  fzf.files()
-end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>f", fzf.files, { desc = "Find Files" })
 vim.keymap.set("n", "<leader>g", fzf.live_grep, { desc = "Live Grep" })
 vim.keymap.set("n", "<leader>sg", fzf.grep, { desc = "Grep" })
 vim.keymap.set("n", "<leader>sw", fzf.grep_cword, { desc = "Grep word" })

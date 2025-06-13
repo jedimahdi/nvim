@@ -3,16 +3,13 @@ if not ok then
   return
 end
 
-local Remap = require("jedi.keymap")
-local nnoremap = Remap.nnoremap
-
 harpoon.setup({})
 
-nnoremap("<leader>sa", require("harpoon.mark").add_file)
-nnoremap("<leader>sm", require("harpoon.ui").toggle_quick_menu)
+vim.keymap.set("n", "<leader>sa", require("harpoon.mark").add_file, { desc = "Harpoon add file" })
+vim.keymap.set("n", "<leader>sm", require("harpoon.ui").toggle_quick_menu, { desc = "Harpoon quick menu" })
 
 for i = 1, 5 do
-  nnoremap(string.format("<leader>%s", i), function()
+  vim.keymap.set("n", string.format("<leader>%s", i), function()
     require("harpoon.ui").nav_file(i)
-  end)
+  end, { desc = "Harpoon nav i" })
 end
