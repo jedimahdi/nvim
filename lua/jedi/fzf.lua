@@ -24,6 +24,9 @@ fzf.setup({
     },
   },
   lsp = { code_actions = { previewer = "codeaction_native" } },
+  grep = {
+    RIPGREP_CONFIG_PATH = vim.env.RIPGREP_CONFIG_PATH,
+  },
   -- tags = { previewer = "bat" },
   -- btags = { previewer = "bat" },
   lines = { _treesitter = false },
