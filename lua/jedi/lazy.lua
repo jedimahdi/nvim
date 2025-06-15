@@ -36,12 +36,12 @@ require("lazy").setup({
   "tpope/vim-surround",
   -- "tpope/vim-abolish",
   "kyazdani42/nvim-web-devicons",
-  {
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  -- {
+  --   "nvim-telescope/telescope.nvim",
+  --   branch = "0.1.x",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  -- },
+  -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
@@ -75,6 +75,7 @@ require("lazy").setup({
         go = { "goimports", "gofmt" },
         javascript = { "prettier" },
         json = { "prettier" },
+        markdown = { "prettier" },
       },
     },
   },

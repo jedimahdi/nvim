@@ -10,7 +10,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
 ls.add_snippets("c", {
-  s("pd", fmt([[printf("{} = %d\n", {});{}]], { rep(1), i(1), i(0) })),
-  s("ps", fmt([[printf("{} = %s\n", {});{}]], { rep(1), i(1), i(0) })),
+  -- s("pd", fmt([[printf("{} = %d\n", {});{}]], { rep(1), i(1), i(0) })),
+  -- s("ps", fmt([[printf("{} = %s\n", {});{}]], { rep(1), i(1), i(0) })),
   s("main", fmta("int main() {\n  <finish>\n  return 0;\n}", { finish = i(0) })),
 })

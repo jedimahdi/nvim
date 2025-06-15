@@ -43,3 +43,4 @@ vim.keymap.set("n", "<leader>st", fzf.tags_live_grep, { desc = "Tags live grep" 
 vim.keymap.set("n", "<leader>sh", fzf.helptags, { desc = "Helps" })
 vim.keymap.set("n", "<leader>sm", fzf.manpages, { desc = "Man Pages" })
 vim.keymap.set("n", "<leader>sd", fzf.diagnostics_document, { desc = "Diagnostics document" })
+vim.keymap.set("n", "<leader>sk", fzf.keymaps, { desc = "Keymaps" })

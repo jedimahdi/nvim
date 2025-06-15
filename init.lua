@@ -2,7 +2,7 @@ require("jedi.set")
 require("jedi.lazy")
 require("jedi.mappings")
 require("jedi.lsp")
-require("jedi.lsp.handlers")
+-- require("jedi.lsp.handlers")
 require("jedi.lsp.diagnostic")
 -- require("jedi.telescope")
 require("jedi.colorscheme")
@@ -18,7 +18,7 @@ require("Comment").setup()
 require("nvim-autopairs").setup({
   disable_filetype = { "TelescopePrompt" },
 })
-require("nvim-ts-autotag").setup()
+-- require("nvim-ts-autotag").setup()
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd

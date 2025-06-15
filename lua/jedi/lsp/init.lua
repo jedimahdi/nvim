@@ -1,5 +1,6 @@
 local lspconfig = require("lspconfig")
 local utils = require("jedi.utils")
+local fzf = require("fzf-lua")
 local fn = utils.fn
 
 local capabilities = nil
@@ -50,6 +51,7 @@ local servers = {
 
 local disable_semantic_tokens = {
   lua = true,
+  c = true,
 }
 
 for name, config in pairs(servers) do
@@ -73,19 +75,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
       config = {}
     end
 
-    vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-
     vim.keymap.set("n", "K", fn(vim.lsp.buf.hover, { silent = true }), { buffer = 0 })
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
-    -- vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
+    vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
+    vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
+    vim.keymap.set("n", "gs", fzf.lsp_document_symbols, { buffer = 0 })
+    vim.keymap.set("n", "gS", fzf.lsp_workspace_symbols, { buffer = 0 })
+    vim.keymap.set("n", "gl", fzf.lsp_live_workspace_symbols, { buffer = 0 })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
     vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
     vim.keymap.set("n", "gn", vim.lsp.buf.rename, { buffer = 0 })
     vim.keymap.set("i", "<C-x>", vim.lsp.buf.signature_help, { buffer = 0 })
-
     vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = 0 })
     vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
-    -- vim.keymap.set("n", "<space>wd", builtin.lsp_document_symbols, { buffer = 0 })
 
     local filetype = vim.bo[bufnr].filetype
     if disable_semantic_tokens[filetype] then
