@@ -28,7 +28,11 @@ require("lazy").setup({
   -- { "rose-pine/neovim", name = "rose-pine" },
 
   -- "nvimtools/none-ls.nvim",
-  "ThePrimeagen/harpoon",
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
   "onsails/lspkind-nvim",
   "numToStr/Comment.nvim",
   "windwp/nvim-autopairs",
@@ -69,6 +73,7 @@ require("lazy").setup({
     opts = {
       formatters_by_ft = {
         c = { "clang-format" },
+        glsl = { "clang_format" },
         lua = { "stylua" },
         sh = { "shfmt" },
         rust = { "rustfmt", lsp_format = "fallback" },
