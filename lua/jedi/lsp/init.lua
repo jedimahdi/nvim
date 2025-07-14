@@ -43,8 +43,17 @@ local servers = {
     },
   },
   clangd = {
-    cmd = { "clangd", "--log=error" },
-    init_options = { clangdFileStatus = false },
+    cmd = {
+      "clangd",
+      "--log=error",
+      "--background-index",
+      "--header-insertion=never",
+      "--query-driver=/usr/bin/gcc,/usr/bin/clang",
+    },
+    init_options = {
+      clangdFileStatus = false,
+      fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-D_GNU_SOURCE", "-x", "c" },
+    },
   },
   ols = true,
 }
@@ -78,7 +87,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "K", fn(vim.lsp.buf.hover, { silent = true }), { buffer = 0 })
     vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
     vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
-    vim.keymap.set("n", "gs", fzf.lsp_document_symbols, { buffer = 0 })
+    -- vim.keymap.set("n", "gs", fzf.lsp_ocument_symbols, { buffer = 0 })
     vim.keymap.set("n", "gS", fzf.lsp_workspace_symbols, { buffer = 0 })
     vim.keymap.set("n", "gl", fzf.lsp_live_workspace_symbols, { buffer = 0 })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
