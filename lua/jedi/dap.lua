@@ -1,7 +1,7 @@
 local dap = require("dap")
 local dapui = require("dapui")
 
-require("nvim-dap-virtual-text").setup()
+-- require("nvim-dap-virtual-text").setup()
 dapui.setup({
 
   layouts = {
@@ -64,14 +64,19 @@ vim.keymap.set("n", "<leader>lc", "<cmd>DapContinue<CR>", { desc = "Continue" })
 
 vim.keymap.set("n", "<leader>lb", "<cmd>DapToggleBreakpoint<CR>", { desc = "Debug Breakpoint" })
 vim.keymap.set("n", "<leader>lB", "<cmd>DapClearBreakpoints<CR>", { desc = "Clear Debug Breakpoints" })
-vim.keymap.set("n", "<leader>la", "<cmd>DapTerminate<CR> <BAR> <cmd>DapClearBreakpoints<CR>", { desc = "Terminate and Clear Breakpoints", silent = true })
+vim.keymap.set(
+  "n",
+  "<leader>la",
+  "<cmd>DapTerminate<CR> <BAR> <cmd>DapClearBreakpoints<CR>",
+  { desc = "Terminate and Clear Breakpoints", silent = true }
+)
 vim.keymap.set("n", "<leader>lr", "<cmd>DapContinue<CR>", { desc = "Run Breakpoint" })
 vim.keymap.set("n", "<leader>ls", "<cmd>DapTerminate<CR>", { desc = "Terminate Debugger" })
 
 dap.adapters.gdb = {
   type = "executable",
   command = "gdb",
-  args = { "--quiet", "--interpreter=dap" },
+  args = { "--quiet", "--interpreter=dap", "--eval-command", "set print pretty on" },
   -- args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
 }
 

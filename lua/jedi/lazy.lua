@@ -33,11 +33,11 @@ require("lazy").setup({
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
-  "onsails/lspkind-nvim",
+  -- "onsails/lspkind-nvim",
   "numToStr/Comment.nvim",
   "windwp/nvim-autopairs",
-  "windwp/nvim-ts-autotag",
-  "tpope/vim-surround",
+  -- "windwp/nvim-ts-autotag",
+  -- "tpope/vim-surround",
   -- "tpope/vim-abolish",
   "kyazdani42/nvim-web-devicons",
   -- {
@@ -48,14 +48,14 @@ require("lazy").setup({
   -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
+    -- dependencies = {
+    --   "nvim-treesitter/nvim-treesitter-textobjects",
+    -- },
   },
   {
     "neovim/nvim-lspconfig",
   },
-  { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
+  -- { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -63,11 +63,18 @@ require("lazy").setup({
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
+      -- "saadparwaiz1/cmp_luasnip",
     },
   },
-  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-  "theHamsta/nvim-dap-virtual-text",
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    event = "VeryLazy",
+    config = function()
+      require("jedi.dap")
+    end,
+  },
+  -- "theHamsta/nvim-dap-virtual-text",
   {
     "stevearc/conform.nvim",
     opts = {

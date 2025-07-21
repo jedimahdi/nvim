@@ -4,22 +4,24 @@ vim.g.loaded_netrwSettings = 1
 
 vim.g.have_nerd_font = true
 
+vim.opt.timeoutlen = 300 -- Faster mappings feel more responsive
+
 vim.opt.mouse = "a"
 vim.opt.guicursor = ""
 
 vim.opt.breakindent = true
 
-vim.opt.formatoptions = vim.opt.formatoptions
-  - "a" -- Auto formatting is BAD.
-  - "t" -- Don't auto format my code. I got linters for that.
-  + "c" -- In general, I like it when comments respect textwidth
-  + "q" -- Allow formatting comments w/ gq
-  + "r" -- But do continue when pressing enter.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
-  - "2" -- I'm not in gradeschool anymore
+-- vim.opt.formatoptions = vim.opt.formatoptions
+--   - "a" -- Auto formatting is BAD.
+--   - "t" -- Don't auto format my code. I got linters for that.
+--   + "c" -- In general, I like it when comments respect textwidth
+--   + "q" -- Allow formatting comments w/ gq
+--   + "r" -- But do continue when pressing enter.
+--   + "n" -- Indent past the formatlistpat, not underneath it.
+--   + "j" -- Auto-remove comments if possible.
+--   - "2" -- I'm not in gradeschool anymore
 
-vim.opt.formatoptions:remove("o")
+-- vim.opt.formatoptions:remove("o")
 
 vim.opt.nu = false
 vim.opt.relativenumber = false
@@ -37,8 +39,9 @@ vim.opt.wrap = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
+vim.opt.writebackup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+vim.opt.undofile = false
 
 vim.opt.inccommand = "nosplit"
 vim.opt.hlsearch = true
@@ -96,5 +99,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
     vim.opt_local.formatoptions:remove({ "r", "o" })
+    -- vim.opt_local.formatoptions:remove({ "r", "o", "a", "t", "2" })
+    -- vim.opt_local.formatoptions:append({ "c", "q", "n", "j" })
   end,
 })

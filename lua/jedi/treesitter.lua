@@ -24,19 +24,19 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "<BS>",
     },
   },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-      },
-      include_surrounding_whitespace = true,
-    },
-  },
+  -- textobjects = {
+  --   select = {
+  --     enable = true,
+  --     lookahead = true,
+  --     keymaps = {
+  --       ["af"] = "@function.outer",
+  --       ["if"] = "@function.inner",
+  --       ["aa"] = "@parameter.outer",
+  --       ["ia"] = "@parameter.inner",
+  --     },
+  --     include_surrounding_whitespace = true,
+  --   },
+  -- },
 })
 
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()

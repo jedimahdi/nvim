@@ -3,7 +3,7 @@ fzf.setup({
   { "default-title" },
   desc = "fzf-native run inside a tmux popup",
   fzf_opts = {
-    ["--tmux"] = "90%",
+    ["--tmux"] = "100%",
     ["--border"] = "rounded",
   },
   fzf_colors = {

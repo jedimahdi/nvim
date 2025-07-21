@@ -7,9 +7,9 @@ local xnoremap = Remap.xnoremap
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
-vim.keymap.set("n", "<space>X", "<cmd>source %<CR>")
-vim.keymap.set("n", "<space>x", ":.lua<CR>")
-vim.keymap.set("v", "<space>x", ":lua<CR>")
+vim.keymap.set("n", "<leader>X", "<cmd>source %<CR>")
+vim.keymap.set("n", "<leader>x", ":.lua<CR>")
+vim.keymap.set("v", "<leader>x", ":lua<CR>")
 
 vim.keymap.set("n", "<C-S>", ":%s/")
 vim.keymap.set("v", "<C-S>", ":s/")
@@ -55,7 +55,7 @@ nnoremap("<leader>j", "<cmd>lprev<CR>zz")
 nnoremap("<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 vim.keymap.set("v", "<leader>r", ":s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
-nnoremap("<leader>w", "<cmd>silent update<CR>")
+vim.keymap.set("n", "<leader>w", "<cmd>update<CR>", { silent = true })
 nnoremap("<leader>q", "<cmd>silent xit<CR>")
 nnoremap("Q", "<cmd>xall<CR>")
 nnoremap("<leader><leader>", "<cmd>buffer#<CR>")
