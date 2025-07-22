@@ -3,8 +3,9 @@ local utils = require("jedi.utils")
 local fzf = require("fzf-lua")
 local fn = utils.fn
 
-local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-local capabilities = ok and cmp_nvim_lsp.default_capabilities() or vim.lsp.protocol.make_client_capabilities()
+local ok, blink_cmp = pcall(require, "blink.cmp")
+local capabilities = ok and blink_cmp.get_lsp_capabilities() or vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 local servers = {
   lua_ls = {
@@ -48,6 +49,7 @@ local servers = {
       "--header-insertion=never",
       "--clang-tidy=false",
       "--completion-style=bundled",
+      "--function-arg-placeholders=false",
       "--query-driver=/usr/bin/gcc,/usr/bin/clang",
     },
     init_options = {
@@ -83,17 +85,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     vim.keymap.set("n", "K", fn(vim.lsp.buf.hover, { silent = true }), { buffer = 0 })
-    vim.keymap.set("n", "gd", function()
-      vim.lsp.buf.clear_references() -- Optional, for cleanliness
-      for _, win in ipairs(vim.api.nvim_list_wins()) do
-        if vim.api.nvim_win_get_config(win).zindex then
-          vim.api.nvim_win_close(win, true)
-        end
-      end
-      require("fzf-lua").lsp_definitions()
-    end, { buffer = bufnr })
+    -- vim.keymap.set("n", "gd", function()
+    --   vim.lsp.buf.clear_references() -- Optional, for cleanliness
+    --   for _, win in ipairs(vim.api.nvim_list_wins()) do
+    --     if vim.api.nvim_win_get_config(win).zindex then
+    --       vim.api.nvim_win_close(win, true)
+    --     end
+    --   end
+    --   require("fzf-lua").lsp_definitions()
+    -- end, { buffer = bufnr })
     -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
-    -- vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
+    vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
     vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
     -- vim.keymap.set("n", "gs", fzf.lsp_ocument_symbols, { buffer = 0 })
     vim.keymap.set("n", "gS", fzf.lsp_workspace_symbols, { buffer = 0 })
