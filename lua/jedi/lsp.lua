@@ -1,7 +1,5 @@
 local lspconfig = require("lspconfig")
-local utils = require("jedi.utils")
 local fzf = require("fzf-lua")
-local fn = utils.fn
 
 local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 local capabilities = ok and cmp_nvim_lsp.default_capabilities() or vim.lsp.protocol.make_client_capabilities()
@@ -84,17 +82,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       config = {}
     end
 
-    vim.keymap.set("n", "K", fn(vim.lsp.buf.hover, { silent = true }), { buffer = 0 })
-    -- vim.keymap.set("n", "gd", function()
-    --   vim.lsp.buf.clear_references() -- Optional, for cleanliness
-    --   for _, win in ipairs(vim.api.nvim_list_wins()) do
-    --     if vim.api.nvim_win_get_config(win).zindex then
-    --       vim.api.nvim_win_close(win, true)
-    --     end
-    --   end
-    --   require("fzf-lua").lsp_definitions()
-    -- end, { buffer = bufnr })
-    -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
     vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
     vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
     -- vim.keymap.set("n", "gs", fzf.lsp_ocument_symbols, { buffer = 0 })
@@ -124,3 +112,56 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
+
+vim.diagnostic.config({
+  underline = false,
+  signs = false,
+  severity_sort = true,
+  update_in_insert = false,
+})
+
+local severity_levels = {
+  vim.diagnostic.severity.ERROR,
+  vim.diagnostic.severity.WARN,
+  vim.diagnostic.severity.INFO,
+  vim.diagnostic.severity.HINT,
+}
+
+local get_highest_error_severity = function()
+  for _, level in ipairs(severity_levels) do
+    local diags = vim.diagnostic.get(0, { severity = { min = level } })
+    if #diags > 0 then
+      return level, diags
+    end
+  end
+end
+
+vim.keymap.set("n", "[d", function()
+  local diags = vim.diagnostic.get(0, {})
+  if #diags <= 0 then
+    return
+  end
+  vim.diagnostic.jump({
+    severity = get_highest_error_severity(),
+    wrap = true,
+    float = true,
+    count = -1,
+  })
+end)
+vim.keymap.set("n", "]d", function()
+  local diags = vim.diagnostic.get(0, {})
+  if #diags <= 0 then
+    return
+  end
+  vim.diagnostic.jump({
+    severity = get_highest_error_severity(),
+    wrap = true,
+    float = true,
+    count = 1,
+  })
+end)
+vim.keymap.set("n", "<leader>a", function()
+  vim.diagnostic.open_float({
+    scope = "line",
+  })
+end)

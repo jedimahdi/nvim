@@ -17,45 +17,84 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require("lazy").setup({
-  {
-    "stevearc/oil.nvim",
-    opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
   "navarasu/onedark.nvim",
   -- "folke/tokyonight.nvim",
-  -- { "catppuccin/nvim", name = "catppuccin" },
-  -- { "rose-pine/neovim", name = "rose-pine" },
-
-  -- "nvimtools/none-ls.nvim",
+  "neovim/nvim-lspconfig",
+  {
+    "stevearc/oil.nvim",
+    opts = {
+      default_file_explorer = true,
+      view_options = {
+        show_hidden = false,
+        is_hidden_file = function(name, _)
+          local folder_skip = { "dev-tools.locks", "dune.lock", "_build", "..", ".git" }
+          return vim.tbl_contains(folder_skip, name)
+        end,
+      },
+      keymaps = {
+        ["g?"] = "actions.show_help",
+        ["<CR>"] = "actions.select",
+        ["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        ["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+        ["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
+        ["<C-p>"] = "actions.preview",
+        ["<C-c>"] = "actions.close",
+        ["<C-l>"] = "actions.refresh",
+        ["h"] = "actions.parent",
+        ["l"] = "actions.select",
+        ["_"] = "actions.open_cwd",
+        ["`"] = "actions.cd",
+        ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory", mode = "n" },
+        ["gs"] = "actions.change_sort",
+        ["gx"] = "actions.open_external",
+        ["g."] = "actions.toggle_hidden",
+        ["g\\"] = "actions.toggle_trash",
+      },
+    },
+    lazy = false,
+    keys = {
+      { "<leader>e", "<cmd>Oil<CR>", desc = "Open parent directory" },
+    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
+    config = function()
+      local harpoon = require("harpoon")
+      vim.keymap.set("n", "<leader>sa", function()
+        harpoon:list():add()
+      end, { desc = "Harpoon add file" })
+      vim.keymap.set("n", "<leader>ss", function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = "Harpoon quick menu" })
+
+      for i = 1, 5 do
+        vim.keymap.set("n", string.format("<leader>%s", i), function()
+          harpoon:list():select(i)
+        end, { desc = "Harpoon uuquick menu" })
+      end
+    end,
   },
-  -- "onsails/lspkind-nvim",
-  "numToStr/Comment.nvim",
-  "windwp/nvim-autopairs",
-  -- "windwp/nvim-ts-autotag",
-  -- "tpope/vim-surround",
-  -- "tpope/vim-abolish",
-  "kyazdani42/nvim-web-devicons",
-  -- {
-  --   "nvim-telescope/telescope.nvim",
-  --   branch = "0.1.x",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  -- },
-  -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  { "numToStr/Comment.nvim", opts = {} },
+  { "windwp/nvim-autopairs", opts = {} },
   {
     "nvim-treesitter/nvim-treesitter",
-    -- dependencies = {
-    --   "nvim-treesitter/nvim-treesitter-textobjects",
-    -- },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "c", "lua", "bash" },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+        indent = {
+          enable = true,
+        },
+      })
+    end,
   },
-  {
-    "neovim/nvim-lspconfig",
-  },
-  -- { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -63,41 +102,8 @@ require("lazy").setup({
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      -- "saadparwaiz1/cmp_luasnip",
     },
   },
-  -- {
-  --   "saghen/blink.cmp",
-  --   version = "1.*",
-  --   opts = {
-  --     keymap = {
-  --       preset = "none",
-  --       ["<C-e>"] = { "hide", "fallback" },
-  --       ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-  --       ["<C-j>"] = { "select_and_accept" },
-  --       ["<Tab>"] = { "show_and_insert", "select_next", "fallback_to_mappings" },
-  --       ["<S-Tab>"] = { "select_prev", "fallback_to_mappings" },
-  --       ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
-  --     },
-  --     signature = {
-  --       enabled = false,
-  --     },
-  --     completion = {
-  --       menu = {
-  --         auto_show = false,
-  --       },
-  --       list = {
-  --         selection = {
-  --           preselect = false,
-  --           auto_insert = true,
-  --         },
-  --       },
-  --     },
-  --     sources = {
-  --       default = { "lsp", "buffer" },
-  --     },
-  --   },
-  -- },
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
@@ -106,7 +112,6 @@ require("lazy").setup({
       require("jedi.dap")
     end,
   },
-  -- "theHamsta/nvim-dap-virtual-text",
   {
     "stevearc/conform.nvim",
     opts = {
@@ -125,24 +130,5 @@ require("lazy").setup({
   },
   {
     "ibhagwan/fzf-lua",
-    -- optional for icon support
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    -- or if using mini.icons/mini.nvim
-    -- dependencies = { "echasnovski/mini.icons" },
   },
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --   build = "cd app && npm install",
-  --   init = function()
-  --     vim.g.mkdp_filetypes = { "markdown" }
-  --   end,
-  --   ft = { "markdown" },
-  -- },
-  -- {
-  --   "norcalli/nvim-colorizer.lua",
-  --   config = function()
-  --     require("colorizer").setup()
-  --   end,
-  -- },
 })
