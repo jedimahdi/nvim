@@ -1,10 +1,3 @@
-local Remap = require("jedi.keymap")
-
-local nnoremap = Remap.nnoremap
-local vnoremap = Remap.vnoremap
-local inoremap = Remap.inoremap
-local xnoremap = Remap.xnoremap
-
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 vim.keymap.set("n", "<leader>X", "<cmd>source %<CR>")
@@ -14,7 +7,7 @@ vim.keymap.set("v", "<leader>x", ":lua<CR>")
 vim.keymap.set("n", "<C-S>", ":%s/")
 vim.keymap.set("v", "<C-S>", ":s/")
 
-inoremap("<C-H>", "<C-w>")
+vim.keymap.set("i", "<C-H>", "<C-w>")
 
 vim.keymap.set({ "n", "x" }, "c", '"_c')
 vim.keymap.set("n", "cc", '"_cc')
@@ -32,43 +25,37 @@ vim.keymap.set("c", "<C-A>", "<HOME>")
 -- Delete the character to the right of the cursor
 vim.keymap.set("i", "<C-D>", "<DEL>")
 
--- nnoremap("<leader>e", ":Ex<CR>")
--- vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-vnoremap("K", ":m '<-2<CR>gv=gv")
-vnoremap("J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 
-nnoremap("Y", "yg$")
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
-nnoremap("J", "mzJ`z")
--- nnoremap("<C-d>", "<C-d>zz")
--- nnoremap("<C-u>", "<C-u>zz")
+vim.keymap.set("n", "Y", "yg$")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "J", "mzJ`z")
 
 -- greatest remap ever
-xnoremap("<leader>p", '"_dP')
+vim.keymap.set("x", "<leader>p", '"_dP')
 
-nnoremap("<C-n>", "<cmd>cnext<CR>zz")
-nnoremap("<C-p>", "<cmd>cprev<CR>zz")
-nnoremap("<leader>k", "<cmd>lnext<CR>zz")
-nnoremap("<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<C-n>", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<C-p>", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>cprev<CR>zz")
 
-nnoremap("<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+vim.keymap.set("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 vim.keymap.set("v", "<leader>r", ":s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 vim.keymap.set("n", "<leader>w", "<cmd>update<CR>", { silent = true })
-nnoremap("<leader>q", "<cmd>silent xit<CR>")
-nnoremap("Q", "<cmd>xall<CR>")
-nnoremap("<leader><leader>", "<cmd>buffer#<CR>")
+vim.keymap.set("n", "<leader>q", "<cmd>silent xit<CR>")
+vim.keymap.set("n", "Q", "<cmd>xall<CR>")
+vim.keymap.set("n", "<leader><leader>", "<cmd>buffer#<CR>")
 
-nnoremap("<leader>z", "<cmd>InspectTree<CR>")
+vim.keymap.set("n", "<leader>z", "<cmd>InspectTree<CR>")
 
--- Format
-nnoremap("<leader>p", function()
+vim.keymap.set("n", "<leader>p", function()
   require("conform").format({})
 end)
 
-nnoremap("<leader>n", "<cmd>nohls<CR>")
-nnoremap("K", function() end)
+vim.keymap.set("n", "<leader>n", "<cmd>nohls<CR>")
 
 vim.keymap.set("n", "<M-j>", function()
   if vim.opt.diff:get() then
@@ -85,11 +72,3 @@ vim.keymap.set("n", "<M-k>", function()
     vim.cmd([[m .-2<CR>==]])
   end
 end)
-
--- nnoremap("<leader>y", '"+y')
--- vnoremap("<leader>y", '"+y')
--- nmap("<leader>Y", '"+Y')
--- nnoremap("<leader>d", '"_d')
--- vnoremap("<leader>d", '"_d')
--- vnoremap("<leader>d", '"_d')
--- inoremap("<C-c>", "<Esc>")
