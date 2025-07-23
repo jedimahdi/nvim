@@ -22,6 +22,7 @@ vim.api.nvim_set_hl(0, "CurSearch", {
 vim.api.nvim_set_hl(0, "IncSearch", {
   bg = "#363d47",
 })
+vim.api.nvim_set_hl(0, "BlinkCmpGhostText", { link = "Comment" })
 
 -- set sign
 -- vim.cmd("sign define DiagnosticSignError text=  linehl= texthl=DiagnosticSignError numhl=")

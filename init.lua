@@ -7,7 +7,7 @@ require("jedi.lsp.diagnostic")
 -- require("jedi.telescope")
 require("jedi.colorscheme")
 require("jedi.treesitter")
--- require("jedi.cmp")
+require("jedi.cmp")
 require("jedi.harpoon")
 require("jedi.tmux")
 require("jedi.oil")
@@ -33,16 +33,16 @@ autocmd("TextYankPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufLeave", {
-  callback = function()
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-      local config = vim.api.nvim_win_get_config(win)
-      if config.relative ~= "" then -- it's a floating window
-        vim.api.nvim_win_close(win, true)
-      end
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufLeave", {
+--   callback = function()
+--     for _, win in ipairs(vim.api.nvim_list_wins()) do
+--       local config = vim.api.nvim_win_get_config(win)
+--       if config.relative ~= "" then -- it's a floating window
+--         vim.api.nvim_win_close(win, true)
+--       end
+--     end
+--   end,
+-- })
 
 vim.g.c_syntax_for_h = 1
 vim.g.loaded_ruby_provider = 0
@@ -52,4 +52,3 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_gzip = 1
-vim.api.nvim_set_hl(0, "BlinkCmpGhostText", { link = "Comment" })

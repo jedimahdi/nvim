@@ -56,48 +56,48 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
   },
   -- { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   dependencies = {
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "hrsh7th/cmp-path",
-  --     "hrsh7th/cmp-cmdline",
-  --     -- "saadparwaiz1/cmp_luasnip",
-  --   },
-  -- },
   {
-    "saghen/blink.cmp",
-    version = "1.*",
-    opts = {
-      keymap = {
-        preset = "none",
-        ["<C-e>"] = { "hide", "fallback" },
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-j>"] = { "select_and_accept" },
-        ["<Tab>"] = { "show_and_insert", "select_next", "fallback_to_mappings" },
-        ["<S-Tab>"] = { "select_prev", "fallback_to_mappings" },
-        ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
-      },
-      signature = {
-        enabled = false,
-      },
-      completion = {
-        menu = {
-          auto_show = false,
-        },
-        list = {
-          selection = {
-            preselect = false,
-            auto_insert = true,
-          },
-        },
-      },
-      sources = {
-        default = { "lsp", "buffer" },
-      },
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      -- "saadparwaiz1/cmp_luasnip",
     },
   },
+  -- {
+  --   "saghen/blink.cmp",
+  --   version = "1.*",
+  --   opts = {
+  --     keymap = {
+  --       preset = "none",
+  --       ["<C-e>"] = { "hide", "fallback" },
+  --       ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+  --       ["<C-j>"] = { "select_and_accept" },
+  --       ["<Tab>"] = { "show_and_insert", "select_next", "fallback_to_mappings" },
+  --       ["<S-Tab>"] = { "select_prev", "fallback_to_mappings" },
+  --       ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+  --     },
+  --     signature = {
+  --       enabled = false,
+  --     },
+  --     completion = {
+  --       menu = {
+  --         auto_show = false,
+  --       },
+  --       list = {
+  --         selection = {
+  --           preselect = false,
+  --           auto_insert = true,
+  --         },
+  --       },
+  --     },
+  --     sources = {
+  --       default = { "lsp", "buffer" },
+  --     },
+  --   },
+  -- },
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
