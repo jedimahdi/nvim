@@ -34,6 +34,7 @@ fzf.setup({
 })
 
 vim.keymap.set("n", "<leader>f", fzf.files, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>b", fzf.buffers, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>g", fzf.live_grep, { desc = "Live Grep" })
 vim.keymap.set("n", "<leader>sg", fzf.grep, { desc = "Grep" })
 vim.keymap.set("n", "<leader>sw", fzf.grep_cword, { desc = "Grep word" })

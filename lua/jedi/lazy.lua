@@ -18,7 +18,6 @@ vim.o.termguicolors = true
 
 require("lazy").setup({
   "navarasu/onedark.nvim",
-  -- "folke/tokyonight.nvim",
   "neovim/nvim-lspconfig",
   {
     "stevearc/oil.nvim",
@@ -57,34 +56,34 @@ require("lazy").setup({
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {},
-    config = function()
-      local harpoon = require("harpoon")
-      vim.keymap.set("n", "<leader>sa", function()
-        harpoon:list():add()
-      end, { desc = "Harpoon add file" })
-      vim.keymap.set("n", "<leader>ss", function()
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-      end, { desc = "Harpoon quick menu" })
-
-      for i = 1, 5 do
-        vim.keymap.set("n", string.format("<leader>%s", i), function()
-          harpoon:list():select(i)
-        end, { desc = "Harpoon uuquick menu" })
-      end
-    end,
-  },
+  -- {
+  --   "ThePrimeagen/harpoon",
+  --   branch = "harpoon2",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   opts = {},
+  --   config = function()
+  --     local harpoon = require("harpoon")
+  --     vim.keymap.set("n", "<leader>sa", function()
+  --       harpoon:list():add()
+  --     end, { desc = "Harpoon add file" })
+  --     vim.keymap.set("n", "<leader>ss", function()
+  --       harpoon.ui:toggle_quick_menu(harpoon:list())
+  --     end, { desc = "Harpoon quick menu" })
+  --
+  --     for i = 1, 5 do
+  --       vim.keymap.set("n", string.format("<leader>%s", i), function()
+  --         harpoon:list():select(i)
+  --       end, { desc = "Harpoon uuquick menu" })
+  --     end
+  --   end,
+  -- },
   { "numToStr/Comment.nvim", opts = {} },
   { "windwp/nvim-autopairs", opts = {} },
   {
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "bash" },
+        ensure_installed = { "c", "lua", "bash", "vimdoc" },
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
@@ -107,10 +106,82 @@ require("lazy").setup({
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-    event = "VeryLazy",
+    cmd = { "DapContinue", "DapToggleBreakpoint" },
     config = function()
       require("jedi.dap")
     end,
+    keys = {
+      {
+        "<leader>lu",
+        function()
+          local widgets = require("dap.ui.widgets")
+          local sidebar = widgets.sidebar(widgets.scopes)
+          sidebar.toggle()
+        end,
+        desc = "Toggle Debug UI",
+        mode = "n",
+      },
+      {
+        "<leader>ls",
+        "<cmd>DapStepOver<CR>",
+        desc = "Step Over",
+        mode = "n",
+      },
+      {
+        "<leader>ln",
+        "<cmd>DapStepOver<CR>",
+        desc = "Step Over",
+        mode = "n",
+      },
+      {
+        "<leader>lo",
+        "<cmd>DapStepOver<CR>",
+        desc = "Step Out",
+        mode = "n",
+      },
+      {
+        "<leader>li",
+        "<cmd>DapStepInto<CR>",
+        desc = "Step Into",
+        mode = "n",
+      },
+      {
+        "<leader>lc",
+        "<cmd>DapContinue<CR>",
+        desc = "Continue",
+        mode = "n",
+      },
+      {
+        "<leader>lb",
+        "<cmd>DapToggleBreakpoint<CR>",
+        desc = "Debug Breakpoint",
+        mode = "n",
+      },
+      {
+        "<leader>lB",
+        "<cmd>DapClearBreakpoints<CR>",
+        desc = "Clear Debug Breakpoints",
+        mode = "n",
+      },
+      {
+        "<leader>la",
+        "<cmd>DapTerminate<CR> <BAR> <cmd>DapClearBreakpoints<CR>",
+        desc = "Terminate and Clear Breakpoints",
+        mode = "n",
+      },
+      {
+        "<leader>lr",
+        "<cmd>DapContinue<CR>",
+        desc = "Run Breakpoint",
+        mode = "n",
+      },
+      {
+        "<leader>ls",
+        "<cmd>DapTerminate<CR>",
+        desc = "Terminate Debugger",
+        mode = "n",
+      },
+    },
   },
   {
     "stevearc/conform.nvim",

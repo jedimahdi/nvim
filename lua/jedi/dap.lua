@@ -1,9 +1,7 @@
 local dap = require("dap")
 local dapui = require("dapui")
 
--- require("nvim-dap-virtual-text").setup()
 dapui.setup({
-
   layouts = {
     {
       elements = {
@@ -49,35 +47,33 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
-
-vim.keymap.set("n", "<leader>lu", function()
-  local widgets = require("dap.ui.widgets")
-  local sidebar = widgets.sidebar(widgets.scopes)
-  sidebar.toggle()
-end, { desc = "Toggle Debug UI" })
--- vim.keymap.set("n", "<leader>lb", "<cmd>DapToggleBreakpoint<CR>", { desc = "BreakPoint" })
-vim.keymap.set("n", "<leader>ls", "<cmd>DapStepOver<CR>", { desc = "Step Over" })
-vim.keymap.set("n", "<leader>ln", "<cmd>DapStepOver<CR>", { desc = "Step Over" })
-vim.keymap.set("n", "<leader>lo", "<cmd>DapStepOver<CR>", { desc = "Step Out" })
-vim.keymap.set("n", "<leader>li", "<cmd>DapStepInto<CR>", { desc = "Step Into" })
-vim.keymap.set("n", "<leader>lc", "<cmd>DapContinue<CR>", { desc = "Continue" })
-
-vim.keymap.set("n", "<leader>lb", "<cmd>DapToggleBreakpoint<CR>", { desc = "Debug Breakpoint" })
-vim.keymap.set("n", "<leader>lB", "<cmd>DapClearBreakpoints<CR>", { desc = "Clear Debug Breakpoints" })
-vim.keymap.set(
-  "n",
-  "<leader>la",
-  "<cmd>DapTerminate<CR> <BAR> <cmd>DapClearBreakpoints<CR>",
-  { desc = "Terminate and Clear Breakpoints", silent = true }
-)
-vim.keymap.set("n", "<leader>lr", "<cmd>DapContinue<CR>", { desc = "Run Breakpoint" })
-vim.keymap.set("n", "<leader>ls", "<cmd>DapTerminate<CR>", { desc = "Terminate Debugger" })
+--
+-- vim.keymap.set("n", "<leader>lu", function()
+--   local widgets = require("dap.ui.widgets")
+--   local sidebar = widgets.sidebar(widgets.scopes)
+--   sidebar.toggle()
+-- end, { desc = "Toggle Debug UI" })
+-- vim.keymap.set("n", "<leader>ls", "<cmd>DapStepOver<CR>", { desc = "Step Over" })
+-- vim.keymap.set("n", "<leader>ln", "<cmd>DapStepOver<CR>", { desc = "Step Over" })
+-- vim.keymap.set("n", "<leader>lo", "<cmd>DapStepOver<CR>", { desc = "Step Out" })
+-- vim.keymap.set("n", "<leader>li", "<cmd>DapStepInto<CR>", { desc = "Step Into" })
+-- vim.keymap.set("n", "<leader>lc", "<cmd>DapContinue<CR>", { desc = "Continue" })
+--
+-- vim.keymap.set("n", "<leader>lb", "<cmd>DapToggleBreakpoint<CR>", { desc = "Debug Breakpoint" })
+-- vim.keymap.set("n", "<leader>lB", "<cmd>DapClearBreakpoints<CR>", { desc = "Clear Debug Breakpoints" })
+-- vim.keymap.set(
+--   "n",
+--   "<leader>la",
+--   "<cmd>DapTerminate<CR> <BAR> <cmd>DapClearBreakpoints<CR>",
+--   { desc = "Terminate and Clear Breakpoints", silent = true }
+-- )
+-- vim.keymap.set("n", "<leader>lr", "<cmd>DapContinue<CR>", { desc = "Run Breakpoint" })
+-- vim.keymap.set("n", "<leader>ls", "<cmd>DapTerminate<CR>", { desc = "Terminate Debugger" })
 
 dap.adapters.gdb = {
   type = "executable",
   command = "gdb",
   args = { "--quiet", "--interpreter=dap", "--eval-command", "set print pretty on" },
-  -- args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
 }
 
 -- Function to find the executable or source file
@@ -138,27 +134,4 @@ dap.configurations.c = {
     stopAtEntry = false,
     -- stopAtBeginningOfMainSubprogram = false,
   },
-  -- {
-  --   name = "Select and attach to process",
-  --   type = "gdb",
-  --   request = "attach",
-  --   program = function()
-  --     return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-  --   end,
-  --   pid = function()
-  --     local name = vim.fn.input("Executable name (filter): ")
-  --     return require("dap.utils").pick_process({ filter = name })
-  --   end,
-  --   cwd = "${workspaceFolder}",
-  -- },
-  -- {
-  --   name = "Attach to gdbserver :1234",
-  --   type = "gdb",
-  --   request = "attach",
-  --   target = "localhost:1234",
-  --   program = function()
-  --     return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-  --   end,
-  --   cwd = "${workspaceFolder}",
-  -- },
 }
