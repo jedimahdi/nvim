@@ -196,6 +196,7 @@ require("lazy").setup({
         javascript = { "prettier" },
         json = { "prettier" },
         markdown = { "prettier" },
+        zig = { "zigfmt" },
       },
     },
   },

@@ -10,7 +10,7 @@ vim.g.loaded_python3_provider = 0
 
 vim.g.have_nerd_font = true
 
-vim.opt.timeoutlen = 300 -- Faster mappings feel more responsive
+-- vim.opt.timeoutlen = 300 -- Faster mappings feel more responsive
 
 vim.opt.mouse = "a"
 vim.opt.guicursor = ""

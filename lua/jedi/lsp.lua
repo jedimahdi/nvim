@@ -56,11 +56,13 @@ local servers = {
     },
   },
   ols = true,
+  zls = true,
 }
 
 local disable_semantic_tokens = {
   lua = true,
   c = true,
+  zig = true
 }
 
 for name, config in pairs(servers) do
