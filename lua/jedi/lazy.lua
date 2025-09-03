@@ -105,7 +105,7 @@ require("lazy").setup({
   },
   {
     "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio", "theHamsta/nvim-dap-virtual-text" },
     cmd = { "DapContinue", "DapToggleBreakpoint" },
     config = function()
       require("jedi.dap")

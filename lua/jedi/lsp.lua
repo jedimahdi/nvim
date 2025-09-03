@@ -46,7 +46,7 @@ local servers = {
       "--background-index",
       "--header-insertion=never",
       "--clang-tidy=false",
-      "--completion-style=bundled",
+      "--completion-style=detailed",
       "--function-arg-placeholders=false",
       "--query-driver=/usr/bin/gcc,/usr/bin/clang",
     },

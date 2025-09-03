@@ -1,41 +1,43 @@
 local dap = require("dap")
 local dapui = require("dapui")
 
+require("nvim-dap-virtual-text").setup()
+
 dapui.setup({
   layouts = {
     {
       elements = {
         {
           id = "scopes",
-          size = 0.75,
-        },
-        {
-          id = "watches",
-          size = 0.15,
-        },
-        {
-          id = "stacks",
-          size = 0.10,
+          size = 1,
         },
       },
       position = "left",
-      size = 45,
+      size = 60,
     },
-    -- {
-    --   elements = {
-    --     {
-    --       id = "repl",
-    --       size = 0.5,
-    --     },
-    --     {
-    --       id = "console",
-    --       size = 0.5,
-    --     },
-    --   },
-    --   position = "bottom",
-    --   size = 10,
-    -- },
+    {
+      elements = {
+        {
+          id = "stacks",
+          size = 0.70,
+        },
+        {
+          id = "watches",
+          size = 0.30,
+        },
+      },
+      position = "bottom",
+      size = 5,
+    },
   },
+  -- mappings = {
+  --   edit = "e",
+  --   expand = { "<CR>", "<2-LeftMouse>" },
+  --   open = "o",
+  --   remove = "d",
+  --   repl = "r",
+  --   toggle = "t",
+  -- },
 })
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
