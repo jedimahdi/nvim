@@ -56,27 +56,14 @@ require("lazy").setup({
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  -- {
-  --   "ThePrimeagen/harpoon",
-  --   branch = "harpoon2",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   opts = {},
-  --   config = function()
-  --     local harpoon = require("harpoon")
-  --     vim.keymap.set("n", "<leader>sa", function()
-  --       harpoon:list():add()
-  --     end, { desc = "Harpoon add file" })
-  --     vim.keymap.set("n", "<leader>ss", function()
-  --       harpoon.ui:toggle_quick_menu(harpoon:list())
-  --     end, { desc = "Harpoon quick menu" })
-  --
-  --     for i = 1, 5 do
-  --       vim.keymap.set("n", string.format("<leader>%s", i), function()
-  --         harpoon:list():select(i)
-  --       end, { desc = "Harpoon uuquick menu" })
-  --     end
-  --   end,
-  -- },
+  {
+    "kylechui/nvim-surround",
+    version = "^3.0.0",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({})
+    end,
+  },
   { "numToStr/Comment.nvim", opts = {} },
   { "windwp/nvim-autopairs", opts = {} },
   {
