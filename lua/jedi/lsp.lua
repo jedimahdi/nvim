@@ -1,93 +1,109 @@
-local lspconfig = require("lspconfig")
 local fzf = require("fzf-lua")
 
-local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-local capabilities = ok and cmp_nvim_lsp.default_capabilities() or vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = false
-
-local servers = {
-  lua_ls = {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = {
-            "vim",
-            "require",
-          },
-        },
-        telemetry = { enable = false },
-      },
-    },
-  },
-  gopls = {
-    settings = {
-      gopls = {
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    },
-  },
-  ts_ls = {
-    server_capabilities = {
-      documentFormattingProvider = false,
-    },
-  },
-  clangd = {
-    cmd = {
-      "clangd",
-      "--log=error",
-      "--background-index",
-      "--header-insertion=never",
-      "--clang-tidy=false",
-      "--completion-style=detailed",
-      "--function-arg-placeholders=false",
-      "--query-driver=/usr/bin/gcc,/usr/bin/clang",
-    },
-    init_options = {
-      clangdFileStatus = false,
-      fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-D_GNU_SOURCE", "-x", "c" },
-    },
-  },
-  ols = true,
-  zls = true,
-}
-
-local disable_semantic_tokens = {
-  lua = true,
-  c = true,
-  zig = true
-}
-
-for name, config in pairs(servers) do
-  if config == true then
-    config = {}
-  end
-  config = vim.tbl_deep_extend("force", {}, config or {}, { capabilities = capabilities })
-
-  lspconfig[name].setup(config)
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if has_cmp_nvim_lsp then
+  capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 end
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local bufnr = args.buf
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
+vim.lsp.config("*", {
+  capabilities = capabilities,
+})
 
-    local config = servers[client.name]
-    if type(config) ~= "table" then
-      config = {}
+vim.lsp.config("clangd", {
+  cmd = {
+    "clangd",
+    "--log=error",
+    "--background-index",
+    "--header-insertion=never",
+    "--clang-tidy=false",
+    "--completion-style=detailed",
+    "--function-arg-placeholders=false",
+  },
+  init_options = {
+    clangdFileStatus = false,
+    fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-D_GNU_SOURCE", "-x", "c" },
+  },
+  on_attach = function(client)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})
+
+vim.lsp.config("lua_ls", {
+  on_attach = function(client)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+  on_init = function(client)
+    if client.workspace_folders then
+      local path = client.workspace_folders[1].name
+      if
+        path ~= vim.fn.stdpath("config")
+        and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+      then
+        return
+      end
     end
 
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+      runtime = {
+        version = "LuaJIT",
+        path = {
+          "lua/?.lua",
+          "lua/?/init.lua",
+        },
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+        },
+      },
+    })
+  end,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {
+          "vim",
+          "require",
+        },
+      },
+      telemetry = { enable = false },
+    },
+  },
+})
+
+vim.lsp.config("gopls", {
+  settings = {
+    gopls = {
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+    },
+  },
+})
+
+vim.lsp.config("ts_ls", {
+  on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+})
+
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("clangd")
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function()
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0, silent = true })
     vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
-    vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
-    -- vim.keymap.set("n", "gs", fzf.lsp_ocument_symbols, { buffer = 0 })
+    -- vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
+    vim.keymap.set("n", "gs", fzf.lsp_document_symbols, { buffer = 0 })
     vim.keymap.set("n", "gS", fzf.lsp_workspace_symbols, { buffer = 0 })
     vim.keymap.set("n", "gl", fzf.lsp_live_workspace_symbols, { buffer = 0 })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
@@ -96,22 +112,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("i", "<C-x>", vim.lsp.buf.signature_help, { buffer = 0 })
     vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = 0 })
     vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
-
-    local filetype = vim.bo[bufnr].filetype
-    if disable_semantic_tokens[filetype] then
-      client.server_capabilities.semanticTokensProvider = nil
-    end
-
-    if config.server_capabilities then
-      for k, v in pairs(config.server_capabilities) do
-        if v == vim.NIL then
-          ---@diagnostic disable-next-line: cast-local-type
-          v = nil
-        end
-
-        client.server_capabilities[k] = v
-      end
-    end
   end,
 })
 
