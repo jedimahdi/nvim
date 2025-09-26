@@ -190,4 +190,18 @@ require("lazy").setup({
   {
     "ibhagwan/fzf-lua",
   },
+  {
+    "kevinhwang91/nvim-bqf",
+    config = function()
+      require("bqf").setup({
+        auto_enable = true,
+        auto_resize_height = true,
+        preview = {
+          winblend = 0, -- no transparency
+          wrap = true,
+          syntax = true, -- ensure syntax highlighting is enabled
+        },
+      })
+    end,
+  },
 })
