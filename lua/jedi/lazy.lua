@@ -18,6 +18,7 @@ vim.o.termguicolors = true
 
 require("lazy").setup({
   "navarasu/onedark.nvim",
+  "rebelot/kanagawa.nvim",
   "neovim/nvim-lspconfig",
   {
     "stevearc/oil.nvim",
