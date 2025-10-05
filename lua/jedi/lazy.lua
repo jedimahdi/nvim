@@ -110,6 +110,22 @@ require("lazy").setup({
         mode = "n",
       },
       {
+        "<leader>lr",
+        function()
+          require("jedi.dap_utils").gdb_run_auto_noargs()
+        end,
+        desc = "Run gdb",
+        mode = "n",
+      },
+      {
+        "<leader>lR",
+        function()
+          require("jedi.dap_utils").gdb_run_auto_args()
+        end,
+        desc = "Run gdb with args",
+        mode = "n",
+      },
+      {
         "<leader>ls",
         "<cmd>DapStepOver<CR>",
         desc = "Step Over",
@@ -155,12 +171,6 @@ require("lazy").setup({
         "<leader>la",
         "<cmd>DapTerminate<CR> <BAR> <cmd>DapClearBreakpoints<CR>",
         desc = "Terminate and Clear Breakpoints",
-        mode = "n",
-      },
-      {
-        "<leader>lr",
-        "<cmd>DapContinue<CR>",
-        desc = "Run Breakpoint",
         mode = "n",
       },
       {

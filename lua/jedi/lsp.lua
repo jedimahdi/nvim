@@ -97,6 +97,7 @@ vim.lsp.config("ts_ls", {
 
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("clangd")
+vim.lsp.enable("gopls")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
