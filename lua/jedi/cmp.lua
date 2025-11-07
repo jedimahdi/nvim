@@ -1,12 +1,6 @@
 local cmp = require("cmp")
 
-vim.opt.completeopt = {
-  "menu",
-  "menuone",
-  "noinsert",
-  "noselect",
-}
-
+vim.opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
 vim.opt.shortmess:append("c")
 
 cmp.setup({
@@ -49,6 +43,14 @@ cmp.setup({
     { name = "nvim_lsp" },
   }, {
     { name = "path" },
+    { name = "buffer", keyword_length = 4 },
+  }),
+})
+
+cmp.setup.filetype({ "c", "cpp" }, {
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+  }, {
     { name = "buffer", keyword_length = 4 },
   }),
 })

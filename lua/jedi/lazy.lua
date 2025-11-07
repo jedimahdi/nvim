@@ -192,7 +192,7 @@ require("lazy").setup({
         rust = { "rustfmt", lsp_format = "fallback" },
         go = { "goimports", "gofmt" },
         javascript = { "prettier" },
-        json = { "prettier" },
+        json = { "jq" },
         markdown = { "prettier" },
         zig = { "zigfmt" },
       },
