@@ -14,8 +14,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.o.termguicolors = true
-
 require("lazy").setup({
   "navarasu/onedark.nvim",
   "rebelot/kanagawa.nvim",
@@ -71,7 +69,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "bash", "vimdoc" },
+        ensure_installed = { "c", "lua", "bash", "vimdoc", "query", "regex" },
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
@@ -186,7 +184,7 @@ require("lazy").setup({
     opts = {
       formatters_by_ft = {
         c = { "clang-format" },
-        glsl = { "clang_format" },
+        glsl = { "clang-format" },
         lua = { "stylua" },
         sh = { "shfmt" },
         rust = { "rustfmt", lsp_format = "fallback" },
@@ -200,6 +198,9 @@ require("lazy").setup({
   },
   {
     "ibhagwan/fzf-lua",
+    config = function()
+      require("jedi.fzf")
+    end,
   },
   {
     "kevinhwang91/nvim-bqf",
