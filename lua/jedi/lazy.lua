@@ -15,8 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  "navarasu/onedark.nvim",
-  "rebelot/kanagawa.nvim",
+  { "navarasu/onedark.nvim", commit = "7d9437799127d77d8bc6af96d758db3ce815c73a" },
   "neovim/nvim-lspconfig",
   {
     "stevearc/oil.nvim",

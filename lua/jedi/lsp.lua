@@ -24,15 +24,9 @@ vim.lsp.config("clangd", {
     clangdFileStatus = false,
     fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-D_GNU_SOURCE", "-x", "c" },
   },
-  on_attach = function(client)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
 })
 
 vim.lsp.config("lua_ls", {
-  on_attach = function(client)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
@@ -89,18 +83,12 @@ vim.lsp.config("gopls", {
   },
 })
 
-vim.lsp.config("ts_ls", {
-  on_attach = function(client)
-    client.server_capabilities.documentFormattingProvider = false
-  end,
-})
+-- vim.lsp.config("ts_ls", {})
 
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("clangd")
-vim.lsp.enable("gopls")
+vim.lsp.enable({ "lua_ls", "clangd", "gopls" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function()
+  callback = function(args)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0, silent = true })
     vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
     -- vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
@@ -113,6 +101,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("i", "<C-x>", vim.lsp.buf.signature_help, { buffer = 0 })
     vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = 0 })
     vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
+
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      return
+    end
+
+    if client.name == "clangd" or client.name == "lua_ls" then
+      client.server_capabilities.semanticTokensProvider = nil
+    end
+
+    if client.name == "ts_ls" then
+      client.server_capabilities.documentFormattingProvider = false
+    end
   end,
 })
 

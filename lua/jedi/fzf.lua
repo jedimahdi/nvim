@@ -1,15 +1,12 @@
 local fzf = require("fzf-lua")
 fzf.setup({
   { "default-title" },
-  desc = "fzf-native run inside a tmux popup",
   fzf_opts = {
-    -- ["--tmux"] = "100%",
+    ["--tmux"] = "90%",
     ["--border"] = "rounded",
   },
-  fzf_colors = {
-    false,
-  },
   defaults = { git_icons = false, file_icons = false },
+  files = { fzf_opts = { ["--ansi"] = false } },
   winopts = {
     width = 0.9,
     height = 0.9,
