@@ -1,63 +1,71 @@
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+local k = vim.keymap.set
 
-vim.keymap.set("n", "<leader>X", "<cmd>source %<CR>")
-vim.keymap.set("n", "<leader>x", ":.lua<CR>")
-vim.keymap.set("v", "<leader>x", ":lua<CR>")
+k({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
-vim.keymap.set("n", "<C-S>", ":%s/")
-vim.keymap.set("v", "<C-S>", ":s/")
+-- vim.api.nvim_set_keymap('c', 'w!!', 'w !sudo tee % >/dev/null<CR>', { noremap = true })
 
-vim.keymap.set("i", "<C-H>", "<C-w>")
+k("n", "<leader>X", "<cmd>source %<CR>")
+k("n", "<leader>x", ":.lua<CR>")
+k("v", "<leader>x", ":lua<CR>")
 
-vim.keymap.set({ "n", "x" }, "c", '"_c')
-vim.keymap.set("n", "cc", '"_cc')
-vim.keymap.set("n", "C", '"_C')
+k("n", "<C-S>", ":%s/")
+k("v", "<C-S>", ":s/")
 
-vim.keymap.set({ "n", "x" }, "x", '"_x')
+k("i", "<C-H>", "<C-w>")
+
+k({ "n", "x" }, "c", '"_c')
+k("n", "cc", '"_cc')
+k("n", "C", '"_C')
+
+k({ "n", "x" }, "x", '"_x')
 
 -- Go to the beginning and end of current line in insert mode quickly
-vim.keymap.set("i", "<C-A>", "<HOME>")
-vim.keymap.set("i", "<C-E>", "<END>")
+k("i", "<C-A>", "<HOME>")
+k("i", "<C-E>", "<END>")
 
 -- Go to beginning of command in command-line mode
-vim.keymap.set("c", "<C-A>", "<HOME>")
+k("c", "<C-A>", "<HOME>")
 
 -- Delete the character to the right of the cursor
-vim.keymap.set("i", "<C-D>", "<DEL>")
+k("i", "<C-D>", "<DEL>")
 
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+k("v", "K", ":m '<-2<CR>gv=gv")
+k("v", "J", ":m '>+1<CR>gv=gv")
 
-vim.keymap.set("n", "Y", "yg$")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "J", "mzJ`z")
+k("n", "Y", "yg$")
+k("n", "n", "nzzzv")
+k("n", "N", "Nzzzv")
+k("n", "J", "mzJ`z")
 
 -- greatest remap ever
-vim.keymap.set("x", "<leader>p", '"_dP')
+k("x", "<leader>p", '"_dP')
 
-vim.keymap.set("n", "<C-n>", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<C-p>", "<cmd>lprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>cprev<CR>zz")
+k("n", "<C-n>", "<cmd>lnext<CR>zz")
+k("n", "<C-p>", "<cmd>lprev<CR>zz")
+k("n", "<leader>k", "<cmd>cnext<CR>zz")
+k("n", "<leader>j", "<cmd>cprev<CR>zz")
 
-vim.keymap.set("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
-vim.keymap.set("v", "<leader>r", ":s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+k("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+k("x", "<leader>r", function()
+  vim.cmd('normal! "zy')
+  local search = vim.fn.escape(vim.fn.getreg("z"), "/\\.")
+  vim.fn.feedkeys(":%s/" .. search .. "/", "n")
+end, { desc = "Substitute across file using visual selection" })
 
-vim.keymap.set("n", "<leader>w", "<cmd>update<CR>", { silent = true })
-vim.keymap.set("n", "<leader>q", "<cmd>silent xit<CR>")
-vim.keymap.set("n", "Q", "<cmd>xall<CR>")
-vim.keymap.set("n", "<leader><leader>", "<cmd>buffer#<CR>")
+k("n", "<leader>w", "<cmd>silent update<CR>", { silent = true })
+k("n", "<leader>q", "<cmd>silent xit<CR>")
+k("n", "Q", "<cmd>xall<CR>")
+k("n", "<leader><leader>", "<cmd>buffer#<CR>")
 
-vim.keymap.set("n", "<leader>z", "<cmd>InspectTree<CR>")
+k("n", "<leader>z", "<cmd>InspectTree<CR>")
 
-vim.keymap.set("n", "<leader>p", function()
+k("n", "<leader>p", function()
   require("conform").format({})
 end)
 
-vim.keymap.set("n", "<leader>n", "<cmd>nohls<CR>")
+k("n", "<leader>n", "<cmd>nohls<CR>")
 
-vim.keymap.set("n", "<M-j>", function()
+k("n", "<M-j>", function()
   if vim.opt.diff:get() then
     vim.cmd([[normal! ]c]])
   else
@@ -65,7 +73,7 @@ vim.keymap.set("n", "<M-j>", function()
   end
 end)
 
-vim.keymap.set("n", "<M-k>", function()
+k("n", "<M-k>", function()
   if vim.opt.diff:get() then
     vim.cmd([[normal! [c]])
   else
@@ -81,5 +89,5 @@ local function toggle_concealcursor()
   vim.opt.concealcursor = vim.opt.concealcursor:get() == "n" and "" or "n"
 end
 
-vim.keymap.set("n", "<F10>", toggle_conceallevel, { noremap = true, silent = true })
-vim.keymap.set("n", "<F11>", toggle_concealcursor, { noremap = true, silent = true })
+k("n", "<F10>", toggle_conceallevel, { noremap = true, silent = true })
+k("n", "<F11>", toggle_concealcursor, { noremap = true, silent = true })

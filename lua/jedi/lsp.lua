@@ -85,22 +85,27 @@ vim.lsp.config("gopls", {
 
 -- vim.lsp.config("ts_ls", {})
 
-vim.lsp.enable({ "lua_ls", "clangd", "gopls" })
+vim.lsp.enable({ "clangd", "gopls", "rust_analyzer" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0, silent = true })
-    vim.keymap.set("n", "gd", fzf.lsp_definitions, { buffer = 0 })
+    local k = function(keys, func, desc, mode)
+      mode = mode or "n"
+      vim.keymap.set(mode, keys, func, { buffer = 0, desc = "LSP: " .. desc })
+    end
+
+    k("K", vim.lsp.buf.hover, "Hover")
+    k("gd", fzf.lsp_definitions, "Jump to definition")
+    k("gs", fzf.lsp_document_symbols, "Symbols")
+    k("gS", fzf.lsp_workspace_symbols, "Workspace symbols")
+    k("gl", fzf.lsp_live_workspace_symbols, "Live workspace symbols")
+    k("gD", vim.lsp.buf.declaration, "Jump to declaration")
+    k("gT", vim.lsp.buf.type_definition, "Jump to type definition")
+    k("gn", vim.lsp.buf.rename, "Rename")
+    k("ga", vim.lsp.buf.code_action, "Code action")
+    k("<space>ca", vim.lsp.buf.code_action, "Code action")
+    k("<C-x>", vim.lsp.buf.signature_help, "Signature help", "i")
     -- vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
-    vim.keymap.set("n", "gs", fzf.lsp_document_symbols, { buffer = 0 })
-    vim.keymap.set("n", "gS", fzf.lsp_workspace_symbols, { buffer = 0 })
-    vim.keymap.set("n", "gl", fzf.lsp_live_workspace_symbols, { buffer = 0 })
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
-    vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
-    vim.keymap.set("n", "gn", vim.lsp.buf.rename, { buffer = 0 })
-    vim.keymap.set("i", "<C-x>", vim.lsp.buf.signature_help, { buffer = 0 })
-    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = 0 })
-    vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if not client then
@@ -140,32 +145,26 @@ local get_highest_error_severity = function()
   end
 end
 
-vim.keymap.set("n", "[d", function()
-  local diags = vim.diagnostic.get(0, {})
-  if #diags <= 0 then
-    return
+local jump_to_error = function(direction)
+  return function()
+    local count = direction == "next" and 1 or -1
+    local diags = vim.diagnostic.get(0, {})
+    if #diags <= 0 then
+      return
+    end
+    vim.diagnostic.jump({
+      severity = get_highest_error_severity(),
+      wrap = true,
+      float = true,
+      count = count,
+    })
   end
-  vim.diagnostic.jump({
-    severity = get_highest_error_severity(),
-    wrap = true,
-    float = true,
-    count = -1,
-  })
-end)
-vim.keymap.set("n", "]d", function()
-  local diags = vim.diagnostic.get(0, {})
-  if #diags <= 0 then
-    return
-  end
-  vim.diagnostic.jump({
-    severity = get_highest_error_severity(),
-    wrap = true,
-    float = true,
-    count = 1,
-  })
-end)
-vim.keymap.set("n", "<leader>a", function()
-  vim.diagnostic.open_float({
-    scope = "line",
-  })
-end)
+end
+
+local function open_float()
+  vim.diagnostic.open_float({ scope = "line" })
+end
+
+vim.keymap.set("n", "[d", jump_to_error("prev"), { desc = "Jump to previous error", silent = true })
+vim.keymap.set("n", "]d", jump_to_error("next"), { desc = "Jump to next error", silent = true })
+vim.keymap.set("n", "<leader>a", open_float, { desc = "Line Diagnostics", silent = true })

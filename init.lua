@@ -1,4 +1,4 @@
-require("jedi.set")
+require("jedi.options")
 require("jedi.lazy")
 require("jedi.mappings")
 require("jedi.lsp")
