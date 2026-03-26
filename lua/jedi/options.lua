@@ -1,5 +1,3 @@
-local root = vim.env.USER == "root"
-
 local globals = {
   loaded_netrw = 1,
   loaded_netrwPlugin = 1,
@@ -20,10 +18,10 @@ local globals = {
 local options = {
   laststatus = 0,
   ruler = false,
-  cmdheight = 0,
-  showmode = false,
+  cmdheight = 1,
+  showmode = true,
   showcmd = false,
-  messagesopt = "wait:200,history:500", -- default = "hit-enter,history:500"
+  -- messagesopt = "wait:200,history:500", -- default = "hit-enter,history:500"
 
   signcolumn = "no",
   number = false,
@@ -36,11 +34,10 @@ local options = {
   smartindent = true,
   breakindent = true,
 
-  wrap = true,
-  smoothscroll = true,
+  wrap = false,
+  smoothscroll = false, -- TODO: trying false for now
   cursorline = false, --highlight line
   scrolloff = 8,
-  ttyfast = true, --faster scrolling
 
   hlsearch = true,
   incsearch = true,
@@ -52,9 +49,8 @@ local options = {
   backup = false,
   undofile = true,
 
-  foldmethod = "expr",
-  foldexpr = "nvim_treesitter#foldexpr()",
-  foldlevel = 99, --disable folding, lower #s enable
+  foldmethod = "manual",
+  foldenable = false,
 
   errorbells = false,
   belloff = "all",
@@ -64,16 +60,18 @@ local options = {
   guicursor = "",
   splitright = true,
   splitbelow = true,
-  conceallevel = 2, --markdown conceal
-  concealcursor = "nc",
+  -- conceallevel = 2, --markdown conceal
+  -- concealcursor = "nc",
   updatetime = 250, -- Save swap file and trigger CursorHold
   updatecount = 0,
   timeoutlen = 500,
-  termguicolors = true,
+  termguicolors = false,
   background = "dark",
   backspace = "indent,eol,start",
-  encoding = "utf-8",
-  shell = "sh", -- shell to use for `!`, `:!`, `system()` etc.
+  wildmode = "longest:full,full",
+  wildoptions = "pum",
+  confirm = true,
+  fillchars = { eob = " " },
 }
 
 for k, v in pairs(options) do
@@ -85,8 +83,10 @@ for k, v in pairs(globals) do
 end
 
 vim.opt.shortmess:append({
-  A = true, -- When a swap file is found.
-  c = true, -- 'ins-completion-menu' messages.
-  I = true, -- Skip intro message.
-  s = true, -- Search hit BOTTOM/TOP messages.
+  A = true,
+  c = true,
+  C = true,
+  I = true,
+  s = true,
+  W = true,
 })

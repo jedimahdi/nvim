@@ -14,6 +14,16 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "rmd", "quarto" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.conceallevel = 2
+    vim.opt_local.concealcursor = "nc"
+  end,
+})
+
 -- restore cursor to file position in previous editing session
 -- vim.api.nvim_create_autocmd("BufReadPost", {
 --   callback = function(args)

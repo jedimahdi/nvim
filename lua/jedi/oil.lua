@@ -1,0 +1,38 @@
+local M = {}
+
+M.keys = {
+  { "<leader>e", "<cmd>Oil<CR>", desc = "Open parent directory" },
+}
+
+M.opts = {
+  default_file_explorer = true,
+  view_options = {
+    show_hidden = false,
+    is_hidden_file = function(name, _)
+      local folder_skip = { "dev-tools.locks", "dune.lock", "_build", "..", ".git" }
+      return vim.tbl_contains(folder_skip, name)
+    end,
+  },
+  keymaps = {
+    ["q"] = "actions.close",
+    ["h"] = "actions.parent",
+    ["l"] = "actions.select",
+    ["g?"] = "actions.show_help",
+    ["<CR>"] = "actions.select",
+    ["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+    ["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+    ["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
+    ["<C-p>"] = "actions.preview",
+    ["<C-c>"] = "actions.close",
+    ["<C-l>"] = "actions.refresh",
+    ["_"] = "actions.open_cwd",
+    ["`"] = "actions.cd",
+    ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory", mode = "n" },
+    ["gs"] = "actions.change_sort",
+    ["gx"] = "actions.open_external",
+    ["g."] = "actions.toggle_hidden",
+    ["g\\"] = "actions.toggle_trash",
+  },
+}
+
+return M

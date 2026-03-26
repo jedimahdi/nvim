@@ -37,7 +37,6 @@ k("n", "n", "nzzzv")
 k("n", "N", "Nzzzv")
 k("n", "J", "mzJ`z")
 
--- greatest remap ever
 k("x", "<leader>p", '"_dP')
 
 k("n", "<C-n>", "<cmd>lnext<CR>zz")
@@ -58,10 +57,6 @@ k("n", "Q", "<cmd>xall<CR>")
 k("n", "<leader><leader>", "<cmd>buffer#<CR>")
 
 k("n", "<leader>z", "<cmd>InspectTree<CR>")
-
-k("n", "<leader>p", function()
-  require("conform").format({})
-end)
 
 k("n", "<leader>n", "<cmd>nohls<CR>")
 
@@ -85,9 +80,4 @@ local function toggle_conceallevel()
   vim.opt.conceallevel = vim.opt.conceallevel:get() > 0 and 0 or 2
 end
 
-local function toggle_concealcursor()
-  vim.opt.concealcursor = vim.opt.concealcursor:get() == "n" and "" or "n"
-end
-
-k("n", "<F10>", toggle_conceallevel, { noremap = true, silent = true })
-k("n", "<F11>", toggle_concealcursor, { noremap = true, silent = true })
+k("n", "<leader>c", toggle_conceallevel, { noremap = true, silent = true })

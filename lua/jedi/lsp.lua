@@ -1,5 +1,3 @@
-local fzf = require("fzf-lua")
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if has_cmp_nvim_lsp then
@@ -93,6 +91,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       mode = mode or "n"
       vim.keymap.set(mode, keys, func, { buffer = 0, desc = "LSP: " .. desc })
     end
+    local fzf = require("fzf-lua")
 
     k("K", vim.lsp.buf.hover, "Hover")
     k("gd", fzf.lsp_definitions, "Jump to definition")

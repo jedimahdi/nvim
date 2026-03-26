@@ -52,6 +52,4 @@ local function kanagawa()
   vim.cmd("colorscheme kanagawa")
 end
 
-vim.opt.termguicolors = true
-vim.opt.background = "dark"
 onedarker()
