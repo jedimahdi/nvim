@@ -86,9 +86,18 @@ function M.setup()
 
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
-      local k = function(keys, func, desc, mode)
-        mode = mode or "n"
-        vim.keymap.set(mode, keys, func, { buffer = 0, desc = "LSP: " .. desc })
+      local k = function(keys, func, desc, opts)
+        opts = opts or {}
+        local mode = opts.mode or "n"
+        opts.mode = nil
+        opts.buffer = 0
+        opts.silent = opts.silent ~= false
+        opts.noremap = opts.noremap ~= false
+        if desc then
+          opts.desc = "LSP: " .. desc
+        end
+
+        vim.keymap.set(mode, keys, func, opts)
       end
 
       k("K", vim.lsp.buf.hover, "Hover")
@@ -109,7 +118,7 @@ function M.setup()
       k("gn", vim.lsp.buf.rename, "Rename")
       k("ga", vim.lsp.buf.code_action, "Code action")
       k("<space>ca", vim.lsp.buf.code_action, "Code action")
-      k("<C-x>", vim.lsp.buf.signature_help, "Signature help", "i")
+      k("<C-x>", vim.lsp.buf.signature_help, "Signature help", { mode = "i" })
       -- vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = 0 })
 
       local client = vim.lsp.get_client_by_id(args.data.client_id)

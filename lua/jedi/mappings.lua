@@ -1,15 +1,15 @@
-local k = vim.keymap.set
+local function k(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  opts.noremap = opts.noremap ~= false
 
-k({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
 
--- vim.api.nvim_set_keymap('c', 'w!!', 'w !sudo tee % >/dev/null<CR>', { noremap = true })
+k({ "n", "v" }, "<Space>", "<Nop>")
 
-k("n", "<leader>X", "<cmd>source %<CR>")
-k("n", "<leader>x", ":.lua<CR>")
-k("v", "<leader>x", ":lua<CR>")
-
-k("n", "<C-S>", ":%s/")
-k("v", "<C-S>", ":s/")
+k("n", "<C-S>", ":%s/", { silent = false })
+k("v", "<C-S>", ":s/", { silent = false })
 
 k("i", "<C-H>", "<C-w>")
 
@@ -19,15 +19,12 @@ k("n", "C", '"_C')
 
 k({ "n", "x" }, "x", '"_x')
 
--- Go to the beginning and end of current line in insert mode quickly
 k("i", "<C-A>", "<HOME>")
 k("i", "<C-E>", "<END>")
 
--- Go to beginning of command in command-line mode
-k("c", "<C-A>", "<HOME>")
+k("c", "<C-A>", "<HOME>", { desc = "Go to beginning of command" })
 
--- Delete the character to the right of the cursor
-k("i", "<C-D>", "<DEL>")
+k("i", "<C-D>", "<DEL>", { desc = "Delete the character to the right of the cursor" })
 
 k("v", "K", ":m '<-2<CR>gv=gv")
 k("v", "J", ":m '>+1<CR>gv=gv")
@@ -44,28 +41,33 @@ k("n", "<C-p>", "<cmd>lprev<CR>zz")
 k("n", "<leader>k", "<cmd>cnext<CR>zz")
 k("n", "<leader>j", "<cmd>cprev<CR>zz")
 
-k("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+k("n", "<leader>r", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { silent = false })
 k("x", "<leader>r", function()
   vim.cmd('normal! "zy')
   local search = vim.fn.escape(vim.fn.getreg("z"), "/\\.")
   vim.fn.feedkeys(":%s/" .. search .. "/", "n")
-end, { desc = "Substitute across file using visual selection" })
+end, { desc = "Substitute across file using visual selection", silent = false })
 
 -- k("n", "<leader>w", "<cmd>update<CR>")
 k("n", "<leader>w", function()
-  vim.cmd("update") -- write buffer if changed
+  vim.cmd.update()
   vim.defer_fn(function()
-    vim.cmd("echo ''") -- clear command line
-  end, 500) -- 500 ms
+    vim.cmd("echo ''")
+  end, 500)
 end)
 k("n", "<leader>n", function()
-  vim.cmd("nohls")
+  vim.cmd.nohlsearch()
   vim.cmd("echo ''")
 end)
 
 k("n", "<leader>q", "<cmd>silent xit<CR>")
 k("n", "Q", "<cmd>xall<CR>")
-k("n", "<leader><leader>", "<cmd>buffer#<CR>")
+k("n", "<leader><leader>", function()
+  local alt = vim.fn.bufnr("#")
+  if alt ~= -1 then
+    vim.api.nvim_set_current_buf(alt)
+  end
+end)
 
 k("n", "<leader>z", "<cmd>InspectTree<CR>")
 
@@ -89,4 +91,4 @@ local function toggle_conceallevel()
   vim.opt.conceallevel = vim.opt.conceallevel:get() > 0 and 0 or 2
 end
 
-k("n", "<leader>c", toggle_conceallevel, { noremap = true, silent = true })
+k("n", "<leader>c", toggle_conceallevel)
