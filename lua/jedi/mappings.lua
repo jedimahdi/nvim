@@ -51,14 +51,23 @@ k("x", "<leader>r", function()
   vim.fn.feedkeys(":%s/" .. search .. "/", "n")
 end, { desc = "Substitute across file using visual selection" })
 
-k("n", "<leader>w", "<cmd>silent update<CR>", { silent = true })
+-- k("n", "<leader>w", "<cmd>update<CR>")
+k("n", "<leader>w", function()
+  vim.cmd("update") -- write buffer if changed
+  vim.defer_fn(function()
+    vim.cmd("echo ''") -- clear command line
+  end, 500) -- 500 ms
+end)
+k("n", "<leader>n", function()
+  vim.cmd("nohls")
+  vim.cmd("echo ''")
+end)
+
 k("n", "<leader>q", "<cmd>silent xit<CR>")
 k("n", "Q", "<cmd>xall<CR>")
 k("n", "<leader><leader>", "<cmd>buffer#<CR>")
 
 k("n", "<leader>z", "<cmd>InspectTree<CR>")
-
-k("n", "<leader>n", "<cmd>nohls<CR>")
 
 k("n", "<M-j>", function()
   if vim.opt.diff:get() then

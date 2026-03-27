@@ -65,13 +65,15 @@ local options = {
   updatetime = 250, -- Save swap file and trigger CursorHold
   updatecount = 0,
   timeoutlen = 500,
-  termguicolors = false,
+  termguicolors = true,
   background = "dark",
   backspace = "indent,eol,start",
   wildmode = "longest:full,full",
   wildoptions = "pum",
+  pumheight = 10,
   confirm = true,
   fillchars = { eob = " " },
+  completeopt = { "menu", "menuone", "noinsert", "noselect" },
 }
 
 for k, v in pairs(options) do

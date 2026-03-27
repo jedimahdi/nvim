@@ -1,4 +1,3 @@
-local dap = require("dap")
 local M = {}
 
 -- Utility: find executable in project root or build/
@@ -43,7 +42,7 @@ end
 
 M.gdb_run_auto_noargs = function()
   find_binary(function(bin)
-    dap.run({
+    require("dap").run({
       name = "Auto bin, no args",
       type = "gdb",
       request = "launch",
@@ -57,7 +56,7 @@ end
 
 M.gdb_run_auto_args = function()
   find_binary(function(bin)
-    dap.run({
+    require("dap").run({
       name = "Auto bin, no args",
       type = "gdb",
       request = "launch",

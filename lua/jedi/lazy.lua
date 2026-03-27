@@ -1,28 +1,16 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-
-vim.opt.rtp:prepend(lazypath)
-
 local dap_spec = require("jedi.dap")
 local oil_spec = require("jedi.oil")
 local conform_spec = require("jedi.conform")
 local fzf_spec = require("jedi.fzf")
 
 local spec = {
-  { "navarasu/onedark.nvim" },
-  "neovim/nvim-lspconfig",
+  { "navarasu/onedark.nvim", priority = 1000, lazy = false, config = require("jedi.colorscheme").onedarker },
+  {
+    "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    config = require("jedi.lsp").setup,
+  },
   {
     "stevearc/oil.nvim",
     opts = oil_spec.opts,
@@ -30,13 +18,23 @@ local spec = {
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  { "kylechui/nvim-surround", version = "^3.0.0", event = "VeryLazy", opts = {} },
-  { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
-  { "windwp/nvim-autopairs", event = "VeryLazy", opts = {} },
+  {
+    "kylechui/nvim-surround",
+    version = "^3.0.0",
+    keys = {
+      { "ys", mode = "n" },
+      { "ds", mode = "n" },
+      { "cs", mode = "n" },
+      { "S", mode = "v" },
+    },
+    opts = {},
+  },
+  { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
   { "nvim-treesitter/nvim-treesitter", config = require("jedi.treesitter").setup },
   {
     "hrsh7th/nvim-cmp",
-    event = "VeryLazy",
+    event = "InsertEnter",
+    config = require("jedi.cmp").setup,
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -55,6 +53,23 @@ local spec = {
   { "ibhagwan/fzf-lua", cmd = { "FzfLua" }, opts = fzf_spec.opts, keys = fzf_spec.keys },
   { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
 }
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+
+vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = spec,

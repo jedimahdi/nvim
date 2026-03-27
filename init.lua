@@ -1,8 +1,7 @@
+vim.loader.enable()
+
 require("jedi.options")
 require("jedi.lazy")
 require("jedi.mappings")
-require("jedi.lsp")
-require("jedi.colorscheme")
-require("jedi.cmp")
 require("jedi.tmux")
 require("jedi.autocmds")

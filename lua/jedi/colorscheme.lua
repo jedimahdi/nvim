@@ -1,4 +1,6 @@
-local function onedarker()
+local M = {}
+
+function M.onedarker()
   require("onedark").setup({
     style = "darker",
   })
@@ -24,7 +26,7 @@ local function onedarker()
   vim.api.nvim_set_hl(0, "BlinkCmpGhostText", { link = "Comment" })
 end
 
-local function kanagawa()
+function M.kanagawa()
   require("kanagawa").setup({
     transparent = true, -- or false, depending on your taste
     overrides = function(colors)
@@ -52,4 +54,4 @@ local function kanagawa()
   vim.cmd("colorscheme kanagawa")
 end
 
-onedarker()
+return M
