@@ -4,7 +4,12 @@ local conform_spec = require("jedi.conform")
 local fzf_spec = require("jedi.fzf")
 
 local spec = {
-  { "navarasu/onedark.nvim", priority = 1000, lazy = false, config = require("jedi.colorscheme").onedarker },
+  {
+    "navarasu/onedark.nvim",
+    priority = 1000,
+    lazy = false,
+    config = require("jedi.colorscheme").onedarker,
+  },
   {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
@@ -44,7 +49,11 @@ local spec = {
   },
   {
     "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio", "theHamsta/nvim-dap-virtual-text" },
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+      "theHamsta/nvim-dap-virtual-text",
+    },
     cmd = { "DapContinue", "DapToggleBreakpoint" },
     config = dap_spec.setup,
     keys = dap_spec.keys,
@@ -57,7 +66,8 @@ local spec = {
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  local out =
+    vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },

@@ -34,98 +34,74 @@ M.opts = {
 M.keys = {
   {
     "<leader>f",
-    function()
-      require("fzf-lua").files()
-    end,
+    function() require("fzf-lua").files() end,
     desc = "Find Files",
     mode = "n",
     silent = true,
   },
   {
     "<leader>b",
-    function()
-      require("fzf-lua").buffers()
-    end,
+    function() require("fzf-lua").buffers() end,
     desc = "Buffers",
     mode = "n",
   },
   {
     "<leader>g",
-    function()
-      require("fzf-lua").live_grep()
-    end,
+    function() require("fzf-lua").live_grep() end,
     desc = "Live Grep",
     mode = "n",
   },
   {
     "<leader>sg",
-    function()
-      require("fzf-lua").grep()
-    end,
+    function() require("fzf-lua").grep() end,
     desc = "Grep",
     mode = "n",
   },
   {
     "<leader>sw",
-    function()
-      require("fzf-lua").grep_cword()
-    end,
+    function() require("fzf-lua").grep_cword() end,
     desc = "Grep word",
     mode = "n",
   },
   {
     "<leader>sW",
-    function()
-      require("fzf-lua").grep_cWORD()
-    end,
+    function() require("fzf-lua").grep_cWORD() end,
     desc = "Grep WORD",
     mode = "n",
   },
   {
     "<leader>sw",
-    function()
-      require("fzf-lua").grep_visual()
-    end,
+    function() require("fzf-lua").grep_visual() end,
     desc = "Grep visual",
     mode = "v",
   },
   {
     "<leader>st",
-    function()
-      require("fzf-lua").tags_live_grep()
-    end,
+    function() require("fzf-lua").tags_live_grep() end,
     desc = "Tags live grep",
     mode = "n",
   },
   {
     "<leader>sh",
-    function()
-      require("fzf-lua").helptags()
-    end,
+    function() require("fzf-lua").helptags() end,
     desc = "Helps",
     mode = "n",
   },
   {
     "<leader>sm",
-    function()
-      require("fzf-lua").manpages()
-    end,
+    function() require("fzf-lua").manpages() end,
     desc = "Man Pages",
     mode = "n",
   },
   {
     "<leader>sd",
-    function()
-      require("fzf-lua").diagnostics_document()
-    end,
+    function() require("fzf-lua").diagnostics_document() end,
     desc = "Diagnostics document",
     mode = "n",
   },
   {
     "<leader>sk",
-    function()
-      require("fzf-lua").keymaps()
-    end,
+    function() require("fzf-lua").keymaps() end,
     desc = "Keymaps",
     mode = "n",
   },

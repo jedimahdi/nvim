@@ -13,17 +13,13 @@ M.keys = {
   },
   {
     "<leader>lr",
-    function()
-      require("jedi.dap_utils").gdb_run_auto_noargs()
-    end,
+    function() require("jedi.dap_utils").gdb_run_auto_noargs() end,
     desc = "Run gdb",
     mode = "n",
   },
   {
     "<leader>lR",
-    function()
-      require("jedi.dap_utils").gdb_run_auto_args()
-    end,
+    function() require("jedi.dap_utils").gdb_run_auto_args() end,
     desc = "Run gdb with args",
     mode = "n",
   },
@@ -120,15 +116,9 @@ function M.setup()
     -- },
   })
 
-  dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-  end
-  dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-  end
-  dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-  end
+  dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+  dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+  dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
   --
   -- vim.keymap.set("n", "<leader>lu", function()
   --   local widgets = require("dap.ui.widgets")

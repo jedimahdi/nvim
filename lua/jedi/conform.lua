@@ -18,9 +18,7 @@ M.opts = {
 M.keys = {
   {
     "<leader>p",
-    function()
-      require("conform").format({})
-    end,
+    function() require("conform").format({}) end,
     desc = "Format file (Conform)",
   },
 }

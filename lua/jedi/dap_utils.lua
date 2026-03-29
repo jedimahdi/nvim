@@ -41,31 +41,35 @@ local function ask_args()
 end
 
 M.gdb_run_auto_noargs = function()
-  find_binary(function(bin)
-    require("dap").run({
-      name = "Auto bin, no args",
-      type = "gdb",
-      request = "launch",
-      program = bin,
-      args = {},
-      cwd = "${workspaceFolder}",
-      stopOnEntry = false,
-    })
-  end)
+  find_binary(
+    function(bin)
+      require("dap").run({
+        name = "Auto bin, no args",
+        type = "gdb",
+        request = "launch",
+        program = bin,
+        args = {},
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+      })
+    end
+  )
 end
 
 M.gdb_run_auto_args = function()
-  find_binary(function(bin)
-    require("dap").run({
-      name = "Auto bin, no args",
-      type = "gdb",
-      request = "launch",
-      program = bin,
-      args = ask_args,
-      cwd = "${workspaceFolder}",
-      stopOnEntry = false,
-    })
-  end)
+  find_binary(
+    function(bin)
+      require("dap").run({
+        name = "Auto bin, no args",
+        type = "gdb",
+        request = "launch",
+        program = bin,
+        args = ask_args,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+      })
+    end
+  )
 end
 
 return M

@@ -101,18 +101,14 @@ function M.setup()
       end
 
       k("K", vim.lsp.buf.hover, "Hover")
-      k("gd", function()
-        require("fzf-lua").lsp_definitions()
-      end, "Jump to definition")
-      k("gs", function()
-        require("fzf-lua").lsp_document_symbols()
-      end, "Symbols")
-      k("gS", function()
-        require("fzf-lua").lsp_workspace_symbols()
-      end, "Workspace symbols")
-      k("gl", function()
-        require("fzf-lua").lsp_live_workspace_symbols()
-      end, "Live workspace symbols")
+      k("gd", function() require("fzf-lua").lsp_definitions() end, "Jump to definition")
+      k("gs", function() require("fzf-lua").lsp_document_symbols() end, "Symbols")
+      k("gS", function() require("fzf-lua").lsp_workspace_symbols() end, "Workspace symbols")
+      k(
+        "gl",
+        function() require("fzf-lua").lsp_live_workspace_symbols() end,
+        "Live workspace symbols"
+      )
       k("gD", vim.lsp.buf.declaration, "Jump to declaration")
       k("gT", vim.lsp.buf.type_definition, "Jump to type definition")
       k("gn", vim.lsp.buf.rename, "Rename")
@@ -175,13 +171,12 @@ function M.setup()
     end
   end
 
-  local function open_float()
-    vim.diagnostic.open_float({ scope = "line" })
-  end
+  local function open_float() vim.diagnostic.open_float({ scope = "line" }) end
+  local function k(lhs, rhs, desc) vim.keymap.set("n", lhs, rhs, { desc = desc, silent = true }) end
 
-  vim.keymap.set("n", "[d", jump_to_error("prev"), { desc = "Jump to previous error", silent = true })
-  vim.keymap.set("n", "]d", jump_to_error("next"), { desc = "Jump to next error", silent = true })
-  vim.keymap.set("n", "<leader>a", open_float, { desc = "Line Diagnostics", silent = true })
+  k("[d", jump_to_error("prev"), "Jump to previous error")
+  k("]d", jump_to_error("next"), "Jump to next error")
+  k("<leader>a", open_float, "Line Diagnostics")
 end
 
 return M
