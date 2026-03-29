@@ -22,6 +22,7 @@ local options = {
   showmode = true,
   showcmd = false,
   -- messagesopt = "wait:200,history:500", -- default = "hit-enter,history:500"
+  report = 10000,
 
   signcolumn = "no",
   number = false,

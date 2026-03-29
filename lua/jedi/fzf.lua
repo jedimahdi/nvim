@@ -39,6 +39,7 @@ M.keys = {
     end,
     desc = "Find Files",
     mode = "n",
+    silent = true,
   },
   {
     "<leader>b",
