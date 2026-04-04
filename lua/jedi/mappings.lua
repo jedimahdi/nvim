@@ -33,8 +33,7 @@ k("n", "n", "nzzzv")
 k("n", "N", "Nzzzv")
 k("n", "J", "mzJ`z")
 
-k("n", "p", "p`]", { desc = "Cursor jumps to end of pasted text" })
-k("x", "p", '"_dP')
+k("x", "p", "P")
 
 k("x", "<", "<gv")
 k("x", ">", ">gv")
@@ -84,3 +83,5 @@ k("n", "<leader>i", toggle_conceallevel)
 
 k("n", "u", "<cmd>silent undo<CR>")
 k("n", "<C-r>", "<cmd>silent redo<CR>")
+
+k("n", "<leader>x", "<cmd>!chmod +x %<CR>")

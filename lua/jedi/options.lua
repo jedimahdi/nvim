@@ -5,8 +5,12 @@ local globals = {
   loaded_ruby_provider = 0,
   loaded_perl_provider = 0,
   loaded_node_provider = 0,
-  loaded_python3_provider = 0,
-  -- loaded_gzip = 1,
+  loaded_python3_provider = nil,
+  loaded_2html_plugin = 1,
+  loaded_tutor_mode_plugin = 1,
+  loaded_zipPlugin = 1,
+  loaded_tarPlugin = 1,
+  loaded_gzip = 1,
 
   c_syntax_for_h = 1,
   have_nerd_font = true,
@@ -22,7 +26,7 @@ local options = {
   showmode = true,
   showcmd = false,
   -- messagesopt = "wait:200,history:500", -- default = "hit-enter,history:500"
-  report = 10000,
+  -- report = 10000,
 
   signcolumn = "no",
   number = false,
@@ -36,7 +40,7 @@ local options = {
   breakindent = true,
 
   wrap = false,
-  smoothscroll = false, -- TODO: trying false for now
+  smoothscroll = true,
   cursorline = false, --highlight line
   scrolloff = 8,
 
@@ -55,15 +59,13 @@ local options = {
 
   errorbells = false,
   belloff = "all",
-  mouse = "nvi", --enable mouse
-  clipboard = "unnamedplus", --system clipboard integration
-  history = 100, --command line history
+  mouse = "a",
+  clipboard = "unnamedplus",
+  history = 1000,
   guicursor = "",
   splitright = true,
   splitbelow = true,
-  -- conceallevel = 2, --markdown conceal
-  -- concealcursor = "nc",
-  updatetime = 250, -- Save swap file and trigger CursorHold
+  -- updatetime = 250, -- Save swap file and trigger CursorHold
   updatecount = 0,
   timeoutlen = 500,
   termguicolors = true,
@@ -77,12 +79,12 @@ local options = {
   completeopt = { "menu", "menuone", "noinsert", "noselect" },
 }
 
-for k, v in pairs(options) do
-  vim.opt[k] = v
-end
-
 for k, v in pairs(globals) do
   vim.g[k] = v
+end
+
+for k, v in pairs(options) do
+  vim.opt[k] = v
 end
 
 vim.opt.shortmess:append({

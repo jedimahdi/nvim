@@ -38,10 +38,7 @@ function M.setup()
       client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
         runtime = {
           version = "LuaJIT",
-          path = {
-            "lua/?.lua",
-            "lua/?/init.lua",
-          },
+          path = { "lua/?.lua", "lua/?/init.lua" },
         },
         workspace = {
           checkThirdParty = false,
@@ -53,12 +50,8 @@ function M.setup()
     end,
     settings = {
       Lua = {
-        diagnostics = {
-          globals = {
-            "vim",
-            "require",
-          },
-        },
+        format = { enable = false },
+        diagnostics = { globals = { "vim" } },
         telemetry = { enable = false },
       },
     },
@@ -80,8 +73,6 @@ function M.setup()
     },
   })
 
-  -- vim.lsp.config("ts_ls", {})
-
   vim.lsp.enable({ "clangd", "gopls", "rust_analyzer", "lua_ls" })
 
   vim.api.nvim_create_autocmd("LspAttach", {
@@ -100,7 +91,7 @@ function M.setup()
         vim.keymap.set(mode, keys, func, opts)
       end
 
-      k("K", vim.lsp.buf.hover, "Hover")
+      -- k("K", vim.lsp.buf.hover, "Hover")
       k("gd", function() require("fzf-lua").lsp_definitions() end, "Jump to definition")
       k("gs", function() require("fzf-lua").lsp_document_symbols() end, "Symbols")
       k("gS", function() require("fzf-lua").lsp_workspace_symbols() end, "Workspace symbols")
