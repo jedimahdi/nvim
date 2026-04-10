@@ -1,5 +1,115 @@
 local M = {}
 
+local servers = {
+  clangd = {
+    enabled = true,
+    filetypes = { "c" },
+    config = {
+      cmd = {
+        "clangd",
+        "--log=error",
+        "--background-index",
+        "--header-insertion=never",
+        "--clang-tidy=false",
+        "--completion-style=detailed",
+        "--function-arg-placeholders=false",
+      },
+      init_options = {
+        clangdFileStatus = false,
+        fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-D_GNU_SOURCE", "-x", "c" },
+      },
+    },
+  },
+  gopls = {
+    enabled = false,
+    filetypes = { "go" },
+    config = {
+      settings = {
+        gopls = {
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+        },
+      },
+    },
+  },
+  lua_ls = {
+    enabled = true,
+    filetypes = { "lua" },
+    config = {
+      on_init = function(client)
+        if client.workspace_folders then
+          local path = client.workspace_folders[1].name
+          if
+            path ~= vim.fn.stdpath("config")
+            and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+          then
+            return
+          end
+        end
+
+        client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+          runtime = {
+            version = "LuaJIT",
+            path = { "lua/?.lua", "lua/?/init.lua" },
+          },
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME,
+            },
+          },
+        })
+      end,
+      settings = {
+        Lua = {
+          format = { enable = false },
+          diagnostics = { globals = { "vim" } },
+          telemetry = { enable = false },
+        },
+      },
+    },
+  },
+  rust_analyzer = {
+    enabled = false,
+    filetypes = { "rust" },
+  },
+}
+
+local function enabled_server_names()
+  local names = {}
+  for name, server in pairs(servers) do
+    if server.enabled then
+      table.insert(names, name)
+    end
+  end
+  return names
+end
+
+function M.filetypes()
+  local seen = {}
+  local filetypes = {}
+
+  for name, server in pairs(servers) do
+    if server.enabled then
+      for _, filetype in ipairs(server.filetypes or {}) do
+        if not seen[filetype] then
+          seen[filetype] = true
+          table.insert(filetypes, filetype)
+        end
+      end
+    end
+  end
+
+  return filetypes
+end
+
 function M.setup()
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -7,73 +117,14 @@ function M.setup()
     capabilities = capabilities,
   })
 
-  vim.lsp.config("clangd", {
-    cmd = {
-      "clangd",
-      "--log=error",
-      "--background-index",
-      "--header-insertion=never",
-      "--clang-tidy=false",
-      "--completion-style=detailed",
-      "--function-arg-placeholders=false",
-    },
-    init_options = {
-      clangdFileStatus = false,
-      fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-D_GNU_SOURCE", "-x", "c" },
-    },
-  })
+  for name, server in pairs(servers) do
+    vim.lsp.config(
+      name,
+      vim.tbl_extend("keep", { filetypes = server.filetypes }, server.config or {})
+    )
+  end
 
-  vim.lsp.config("lua_ls", {
-    on_init = function(client)
-      if client.workspace_folders then
-        local path = client.workspace_folders[1].name
-        if
-          path ~= vim.fn.stdpath("config")
-          and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-        then
-          return
-        end
-      end
-
-      client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-        runtime = {
-          version = "LuaJIT",
-          path = { "lua/?.lua", "lua/?/init.lua" },
-        },
-        workspace = {
-          checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME,
-          },
-        },
-      })
-    end,
-    settings = {
-      Lua = {
-        format = { enable = false },
-        diagnostics = { globals = { "vim" } },
-        telemetry = { enable = false },
-      },
-    },
-  })
-
-  vim.lsp.config("gopls", {
-    settings = {
-      gopls = {
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    },
-  })
-
-  vim.lsp.enable({ "clangd", "gopls", "rust_analyzer", "lua_ls" })
+  vim.lsp.enable(enabled_server_names())
 
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)

@@ -12,7 +12,7 @@ local spec = {
   },
   {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
+    ft = require("jedi.lsp").filetypes(),
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = require("jedi.lsp").setup,
   },
