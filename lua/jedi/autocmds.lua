@@ -19,3 +19,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.concealcursor = "nc"
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "c",
+  callback = function()
+    vim.keymap.set("n", "<leader>h", "<cmd>LspClangdSwitchSourceHeader<CR>", { silent = true })
+  end,
+})

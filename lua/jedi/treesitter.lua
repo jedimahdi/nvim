@@ -1,15 +1,28 @@
 local M = {}
 
 function M.setup()
-  require("nvim-treesitter").setup({
-    -- ensure_installed = { "c", "lua", "bash", "vimdoc", "query", "regex" },
-    -- highlight = {
-    --   enable = true,
-    --   additional_vim_regex_highlighting = false,
-    -- },
-    -- indent = {
-    --   enable = true,
-    -- },
+  local langauges = {
+    "bash",
+    "c",
+    "cpp",
+    "go",
+    "html",
+    "javascript",
+    "json",
+    "lua",
+    "make",
+    "markdown",
+    "markdown_inline",
+    "python",
+    "rust",
+    "typescript",
+    "vimdoc",
+    "yaml",
+  }
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = langauges,
+    callback = function(args) vim.treesitter.start(args.buf) end,
   })
 end
 
