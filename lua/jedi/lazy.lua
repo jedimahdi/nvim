@@ -35,7 +35,7 @@ local spec = {
     opts = {},
   },
   { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
-  { "nvim-treesitter/nvim-treesitter", config = require("jedi.treesitter").setup },
+  -- { "nvim-treesitter/nvim-treesitter", config = require("jedi.treesitter").setup },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
