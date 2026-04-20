@@ -1,25 +1,24 @@
 local M = {}
 
 M.opts = {
-  { "default-title" },
+  { "default" },
   fzf_opts = {
-    ["--tmux"] = "90%",
+    -- ["--tmux"] = "90%",
     ["--border"] = "rounded",
   },
   defaults = { git_icons = false, file_icons = false },
-  files = { fzf_opts = { ["--ansi"] = false } },
+  files = {
+    fzf_opts = {
+      ["--ansi"] = false,
+      ["--scheme"] = "path",
+    },
+  },
   winopts = {
+    preview = { default = "bat" },
+    treesitter = false,
     width = 0.9,
     height = 0.9,
     border = { "", "", "", "", "", "", "", "" },
-    preview = {
-      hidden = true,
-      border = { "", "", "", "", "", "", "", "" },
-      winopts = {
-        number = false,
-        relativenumber = false,
-      },
-    },
   },
   lsp = { code_actions = { previewer = "codeaction_native" } },
   grep = {
