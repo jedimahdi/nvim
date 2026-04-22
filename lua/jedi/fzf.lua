@@ -1,33 +1,39 @@
 local M = {}
 
 M.opts = {
-  { "default" },
+  { "default-title" },
   fzf_opts = {
-    -- ["--tmux"] = "90%",
+    ["--tmux"] = "90%",
     ["--border"] = "rounded",
   },
   defaults = { git_icons = false, file_icons = false },
   files = {
+    previewer = false,
     fzf_opts = {
       ["--ansi"] = false,
       ["--scheme"] = "path",
     },
   },
   winopts = {
-    preview = { default = "bat" },
-    treesitter = false,
     width = 0.9,
     height = 0.9,
-    border = { "", "", "", "", "", "", "", "" },
+    border = false,
+    preview = {
+      default = "bat",
+      border = "border-line",
+    },
   },
   lsp = { code_actions = { previewer = "codeaction_native" } },
   grep = {
     RIPGREP_CONFIG_PATH = vim.env.RIPGREP_CONFIG_PATH,
+    previewer = false,
   },
+  manpages = { previewer = false },
+  helptags = { previewer = false },
   -- tags = { previewer = "bat" },
   -- btags = { previewer = "bat" },
-  lines = { _treesitter = false },
-  blines = { _treesitter = false },
+  -- lines = { _treesitter = false },
+  -- blines = { _treesitter = false },
 }
 
 M.keys = {
