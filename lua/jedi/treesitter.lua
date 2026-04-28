@@ -3,6 +3,7 @@ local M = {}
 function M.setup()
   local langauges = {
     "bash",
+    "sh",
     "c",
     "cpp",
     "go",

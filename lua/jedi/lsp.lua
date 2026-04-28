@@ -126,6 +126,18 @@ function M.setup()
 
   vim.lsp.enable(enabled_server_names())
 
+  vim.api.nvim_create_user_command("LspDisableSession", function()
+    vim.lsp.enable(enabled_server_names(), false)
+
+    for _, client in ipairs(vim.lsp.get_clients()) do
+      client:stop(true)
+    end
+
+    vim.notify("LSP disabled for this Neovim session")
+  end, {
+    desc = "Stop all LSP clients and disable autostart for this session",
+  })
+
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local k = function(keys, func, desc, opts)
