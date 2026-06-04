@@ -80,6 +80,10 @@ local servers = {
     enabled = false,
     filetypes = { "rust" },
   },
+  zls = {
+    enabled = true,
+    filetypes = { "zig" },
+  },
 }
 
 local function enabled_server_names()

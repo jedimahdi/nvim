@@ -19,6 +19,10 @@ function M.setup()
     "typescript",
     "vimdoc",
     "yaml",
+    "nix",
+    "toml",
+    "zsh",
+    "zig",
   }
 
   vim.api.nvim_create_autocmd("FileType", {

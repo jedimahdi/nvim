@@ -24,7 +24,7 @@ local options = {
   ruler = false,
   cmdheight = 1,
   showmode = true,
-  showcmd = false,
+  showcmd = true,
   -- messagesopt = "wait:200,history:500", -- default = "hit-enter,history:500"
   -- report = 10000,
 
@@ -39,7 +39,7 @@ local options = {
   smartindent = true,
   breakindent = true,
 
-  wrap = false,
+  wrap = true,
   smoothscroll = true,
   cursorline = false, --highlight line
   scrolloff = 8,
