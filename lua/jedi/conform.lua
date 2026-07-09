@@ -6,12 +6,16 @@ M.opts = {
     glsl = { "clang-format" },
     lua = { "stylua" },
     sh = { "shfmt" },
+    bash = { "shfmt" },
+    zsh = { "shfmt" },
     rust = { "rustfmt", lsp_format = "fallback" },
     go = { "goimports", "gofmt" },
     javascript = { "prettier" },
+    typescript = { "prettier" },
     json = { "jq" },
     markdown = { "prettier" },
     zig = { "zigfmt" },
+    odin = { "odinfmt" },
   },
 }
 

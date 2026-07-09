@@ -23,6 +23,8 @@ function M.setup()
     "toml",
     "zsh",
     "zig",
+    "odin",
+    "c3",
   }
 
   vim.api.nvim_create_autocmd("FileType", {

@@ -20,6 +20,10 @@ local servers = {
       },
     },
   },
+  ccls = {
+    enabled = false,
+    filetypes = { "c" },
+  },
   gopls = {
     enabled = false,
     filetypes = { "go" },
@@ -83,6 +87,19 @@ local servers = {
   zls = {
     enabled = true,
     filetypes = { "zig" },
+  },
+  ols = {
+    enabled = true,
+    filetypes = { "odin" },
+  },
+  ts_ls = {
+    enabled = true,
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
   },
 }
 

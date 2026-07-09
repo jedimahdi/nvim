@@ -66,6 +66,20 @@ local spec = {
   { "stevearc/conform.nvim", opts = conform_spec.opts, keys = conform_spec.keys },
   { "ibhagwan/fzf-lua", cmd = { "FzfLua" }, opts = fzf_spec.opts, keys = fzf_spec.keys },
   { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
+  {
+    "selimacerbas/markdown-preview.nvim",
+    dependencies = { "selimacerbas/live-server.nvim" },
+    cmd = { "MarkdownPreview" },
+    config = function()
+      require("markdown_preview").setup({
+        instance_mode = "takeover",
+        port = 0,
+        open_browser = true,
+        default_theme = "dark",
+        debounce_ms = 300,
+      })
+    end,
+  },
 }
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

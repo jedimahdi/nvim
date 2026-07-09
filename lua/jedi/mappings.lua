@@ -85,3 +85,10 @@ k("n", "u", "<cmd>silent undo<CR>")
 k("n", "<C-r>", "<cmd>silent redo<CR>")
 
 k("n", "<leader>x", "<cmd>!chmod +x %<CR>")
+
+vim.keymap.set("n", "<leader>u", function()
+  if not package.loaded["undotree"] then
+    vim.cmd("packadd nvim.undotree")
+  end
+  require("undotree").open({ command = "40vnew" })
+end, { desc = "Open Undo Tree", silent = true })
