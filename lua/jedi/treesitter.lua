@@ -1,37 +1,50 @@
 local M = {}
 
+local function treesitter_try_attach(buf, language)
+  if not vim.treesitter.language.add(language) then
+    return
+  end
+  vim.treesitter.start(buf, language)
+  local has_indent_query = vim.treesitter.query.get(language, "indents") ~= nil
+
+  if has_indent_query then
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+end
+
 function M.setup()
-  local langauges = {
+  local parsers = {
     "bash",
-    "sh",
     "c",
-    "cpp",
-    "go",
-    "html",
-    "javascript",
-    "json",
+    "diff",
     "lua",
-    "make",
+    "luadoc",
     "markdown",
     "markdown_inline",
-    "python",
-    "rust",
-    "typescript",
+    "query",
+    "vim",
     "vimdoc",
-    "yaml",
-    "nix",
+    "json",
+    "make",
     "toml",
-    "zsh",
-    "zig",
-    "odin",
-    "c3",
   }
 
+  require("nvim-treesitter").install(parsers)
+
   vim.api.nvim_create_autocmd("FileType", {
-    pattern = langauges,
     callback = function(args)
-      vim.treesitter.start(args.buf)
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      local buf, filetype = args.buf, args.match
+      local language = vim.treesitter.language.get_lang(filetype)
+
+      if not language then
+        return
+      end
+
+      local installed_parsers = require("nvim-treesitter").get_installed("parsers")
+
+      if vim.tbl_contains(installed_parsers, language) then
+        treesitter_try_attach(buf, language)
+      end
     end,
   })
 end

@@ -24,6 +24,10 @@ local servers = {
     enabled = false,
     filetypes = { "c" },
   },
+  bashls = {
+    enabled = false,
+    filetypes = { "bash", "sh" },
+  },
   gopls = {
     enabled = false,
     filetypes = { "go" },
