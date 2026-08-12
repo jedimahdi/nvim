@@ -52,6 +52,8 @@ local servers = {
     filetypes = { "lua" },
     config = {
       on_init = function(client)
+        client.server_capabilities.documentFormattingProvider = false
+
         if client.workspace_folders then
           local path = client.workspace_folders[1].name
           if
@@ -69,9 +71,7 @@ local servers = {
           },
           workspace = {
             checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME,
-            },
+            library = vim.api.nvim_get_runtime_file("", true),
           },
         })
       end,
@@ -216,6 +216,7 @@ function M.setup()
     signs = false,
     severity_sort = true,
     update_in_insert = false,
+    float = { border = "rounded", source = "if_many" },
   })
 
   local severity_levels = {
