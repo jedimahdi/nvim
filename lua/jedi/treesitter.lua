@@ -16,7 +16,6 @@ function M.setup()
   local parsers = {
     "bash",
     "c",
-    "diff",
     "lua",
     "luadoc",
     "markdown",

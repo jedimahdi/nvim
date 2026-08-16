@@ -39,7 +39,7 @@ local options = {
   smartindent = true,
   breakindent = true,
 
-  wrap = true,
+  wrap = false,
   smoothscroll = true,
   cursorline = false, --highlight line
   scrolloff = 8,

@@ -1,8 +1,3 @@
-local dap_spec = require("jedi.dap")
-local oil_spec = require("jedi.oil")
-local conform_spec = require("jedi.conform")
-local fzf_spec = require("jedi.fzf")
-
 local spec = {
   {
     "navarasu/onedark.nvim",
@@ -13,13 +8,12 @@ local spec = {
   {
     "neovim/nvim-lspconfig",
     ft = require("jedi.lsp").filetypes(),
-    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = require("jedi.lsp").setup,
   },
   {
     "stevearc/oil.nvim",
-    opts = oil_spec.opts,
-    keys = oil_spec.keys,
+    opts = require("jedi.oil").opts,
+    keys = require("jedi.oil").keys,
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
@@ -42,16 +36,49 @@ local spec = {
     lazy = false,
   },
   {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    config = require("jedi.cmp").setup,
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
+    "saghen/blink.cmp",
+    version = "1.*",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        preset = "none",
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<C-e>"] = { "hide", "fallback" },
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+        ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+        ["<C-y>"] = { "select_and_accept", "fallback" },
+        ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+      },
+      sources = {
+        providers = {
+          buffer = {
+            min_keyword_length = 4,
+          },
+        },
+      },
+      completion = {
+        list = { selection = { preselect = false, auto_insert = true } },
+        documentation = { auto_show = true },
+      },
+      appearance = {
+        nerd_font_variant = "normal",
+      },
     },
   },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   event = "InsertEnter",
+  --   config = require("jedi.cmp").setup,
+  --   dependencies = {
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-buffer",
+  --     "hrsh7th/cmp-path",
+  --     "hrsh7th/cmp-cmdline",
+  --   },
+  -- },
   {
     "rcarriga/nvim-dap-ui",
     dependencies = {
@@ -60,11 +87,20 @@ local spec = {
       "theHamsta/nvim-dap-virtual-text",
     },
     cmd = { "DapContinue", "DapToggleBreakpoint" },
-    config = dap_spec.setup,
-    keys = dap_spec.keys,
+    config = require("jedi.dap").setup,
+    keys = require("jedi.dap").keys,
   },
-  { "stevearc/conform.nvim", opts = conform_spec.opts, keys = conform_spec.keys },
-  { "ibhagwan/fzf-lua", cmd = { "FzfLua" }, opts = fzf_spec.opts, keys = fzf_spec.keys },
+  {
+    "stevearc/conform.nvim",
+    opts = require("jedi.conform").opts,
+    keys = require("jedi.conform").keys,
+  },
+  {
+    "ibhagwan/fzf-lua",
+    cmd = { "FzfLua" },
+    opts = require("jedi.fzf").opts,
+    keys = require("jedi.fzf").keys,
+  },
   { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
   {
     "selimacerbas/markdown-preview.nvim",
@@ -104,5 +140,12 @@ require("lazy").setup({
   spec = spec,
   rocks = {
     enabled = false,
+  },
+  git = {
+    throttle = {
+      enabled = true,
+      rate = 1,
+      duration = 100,
+    },
   },
 })

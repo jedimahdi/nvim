@@ -121,7 +121,7 @@ function M.filetypes()
   local seen = {}
   local filetypes = {}
 
-  for name, server in pairs(servers) do
+  for _, server in pairs(servers) do
     if server.enabled then
       for _, filetype in ipairs(server.filetypes or {}) do
         if not seen[filetype] then
@@ -136,7 +136,8 @@ function M.filetypes()
 end
 
 function M.setup()
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local capabilities = require("blink.cmp").get_lsp_capabilities()
+  -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   vim.lsp.config("*", {
     capabilities = capabilities,
