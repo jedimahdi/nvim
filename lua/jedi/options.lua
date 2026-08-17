@@ -38,6 +38,8 @@ local options = {
   expandtab = true,
   smartindent = true,
   breakindent = true,
+  linebreak = true,
+  concealcursor = "nc",
 
   wrap = false,
   smoothscroll = true,

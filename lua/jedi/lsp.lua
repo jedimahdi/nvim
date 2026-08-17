@@ -71,7 +71,7 @@ local servers = {
           },
           workspace = {
             checkThirdParty = false,
-            library = vim.api.nvim_get_runtime_file("", true),
+            library = { vim.env.VIMRUNTIME },
           },
         })
       end,
@@ -80,6 +80,10 @@ local servers = {
           format = { enable = false },
           diagnostics = { globals = { "vim" } },
           telemetry = { enable = false },
+          completion = {
+            callSnippet = "Disable",
+            keywordSnippet = "Disable",
+          },
         },
       },
     },
@@ -136,8 +140,15 @@ function M.filetypes()
 end
 
 function M.setup()
-  local capabilities = require("blink.cmp").get_lsp_capabilities()
-  -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local capabilities = require("blink.cmp").get_lsp_capabilities({
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = false,
+        },
+      },
+    },
+  })
 
   vim.lsp.config("*", {
     capabilities = capabilities,

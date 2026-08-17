@@ -38,35 +38,8 @@ local spec = {
   {
     "saghen/blink.cmp",
     version = "1.*",
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
-      keymap = {
-        preset = "none",
-        ["<Tab>"] = { "select_next", "fallback" },
-        ["<S-Tab>"] = { "select_prev", "fallback" },
-        ["<C-e>"] = { "hide", "fallback" },
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
-        ["<C-n>"] = { "select_next", "fallback_to_mappings" },
-        ["<C-y>"] = { "select_and_accept", "fallback" },
-        ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
-      },
-      sources = {
-        providers = {
-          buffer = {
-            min_keyword_length = 4,
-          },
-        },
-      },
-      completion = {
-        list = { selection = { preselect = false, auto_insert = true } },
-        documentation = { auto_show = true },
-      },
-      appearance = {
-        nerd_font_variant = "normal",
-      },
-    },
+    event = "InsertEnter",
+    opts = require("jedi.blink").opts,
   },
   -- {
   --   "hrsh7th/nvim-cmp",
@@ -101,7 +74,7 @@ local spec = {
     opts = require("jedi.fzf").opts,
     keys = require("jedi.fzf").keys,
   },
-  { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
+  -- { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
   {
     "selimacerbas/markdown-preview.nvim",
     dependencies = { "selimacerbas/live-server.nvim" },
