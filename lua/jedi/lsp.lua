@@ -89,7 +89,7 @@ local servers = {
     },
   },
   rust_analyzer = {
-    enabled = false,
+    enabled = true,
     filetypes = { "rust" },
   },
   zls = {
@@ -191,7 +191,6 @@ function M.setup()
         vim.keymap.set(mode, keys, func, opts)
       end
 
-      -- k("K", vim.lsp.buf.hover, "Hover")
       k("gd", function() require("fzf-lua").lsp_definitions() end, "Jump to definition")
       k("gs", function() require("fzf-lua").lsp_document_symbols() end, "Symbols")
       k("gS", function() require("fzf-lua").lsp_workspace_symbols() end, "Workspace symbols")

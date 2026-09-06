@@ -3,6 +3,7 @@ local function augroup(name) return vim.api.nvim_create_augroup("jedi_" .. name,
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   callback = function() vim.hl.on_yank({ higroup = "IncSearch", timeout = 100 }) end,
+  -- callback = function() vim.hl.hl_op({ higroup = "IncSearch", timeout = 100 }) end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {

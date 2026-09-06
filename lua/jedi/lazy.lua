@@ -20,6 +20,7 @@ local spec = {
   {
     "kylechui/nvim-surround",
     version = "^3.0.0",
+    lazy = true,
     keys = {
       { "ys", mode = "n" },
       { "ds", mode = "n" },
@@ -38,22 +39,11 @@ local spec = {
   {
     "saghen/blink.cmp",
     version = "1.*",
-    event = "InsertEnter",
     opts = require("jedi.blink").opts,
   },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   event = "InsertEnter",
-  --   config = require("jedi.cmp").setup,
-  --   dependencies = {
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "hrsh7th/cmp-path",
-  --     "hrsh7th/cmp-cmdline",
-  --   },
-  -- },
   {
     "rcarriga/nvim-dap-ui",
+    lazy = true,
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
@@ -65,6 +55,7 @@ local spec = {
   },
   {
     "stevearc/conform.nvim",
+    lazy = true,
     opts = require("jedi.conform").opts,
     keys = require("jedi.conform").keys,
   },
@@ -77,6 +68,7 @@ local spec = {
   -- { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
   {
     "selimacerbas/markdown-preview.nvim",
+    lazy = true,
     dependencies = { "selimacerbas/live-server.nvim" },
     cmd = { "MarkdownPreview" },
     config = function()
@@ -117,8 +109,8 @@ require("lazy").setup({
   git = {
     throttle = {
       enabled = true,
-      rate = 1,
-      duration = 100,
+      rate = 2,
+      duration = 150,
     },
   },
 })

@@ -44,7 +44,7 @@ local options = {
   wrap = false,
   smoothscroll = true,
   cursorline = false, --highlight line
-  scrolloff = 8,
+  scrolloff = 5,
 
   hlsearch = true,
   incsearch = true,

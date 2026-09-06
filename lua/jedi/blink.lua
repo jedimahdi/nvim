@@ -7,7 +7,7 @@ M.opts = {
     preset = "none",
     ["<Tab>"] = { "select_next", "fallback" },
     ["<S-Tab>"] = { "select_prev", "fallback" },
-    ["<C-e>"] = { "hide", "fallback" },
+    ["<C-e>"] = { "fallback" },
     ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
     ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
     ["<C-n>"] = { "select_next", "fallback_to_mappings" },
@@ -22,6 +22,7 @@ M.opts = {
       },
     },
   },
+  cmdline = { enabled = false },
   completion = {
     accept = { auto_brackets = { enabled = false } },
     menu = {
