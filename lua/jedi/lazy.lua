@@ -15,7 +15,7 @@ local spec = {
     opts = require("jedi.oil").opts,
     keys = require("jedi.oil").keys,
     lazy = false,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
     "kylechui/nvim-surround",
@@ -66,21 +66,6 @@ local spec = {
     keys = require("jedi.fzf").keys,
   },
   -- { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
-  {
-    "selimacerbas/markdown-preview.nvim",
-    lazy = true,
-    dependencies = { "selimacerbas/live-server.nvim" },
-    cmd = { "MarkdownPreview" },
-    config = function()
-      require("markdown_preview").setup({
-        instance_mode = "takeover",
-        port = 0,
-        open_browser = true,
-        default_theme = "dark",
-        debounce_ms = 300,
-      })
-    end,
-  },
 }
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

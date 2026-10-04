@@ -89,7 +89,7 @@ local servers = {
     },
   },
   rust_analyzer = {
-    enabled = true,
+    enabled = false,
     filetypes = { "rust" },
   },
   zls = {
@@ -256,7 +256,14 @@ function M.setup()
       vim.diagnostic.jump({
         severity = get_highest_error_severity(),
         wrap = true,
-        float = true,
+        -- float = true,
+        on_jump = function(_, bufnr)
+          vim.diagnostic.open_float({
+            bufnr = bufnr,
+            scope = "cursor",
+            focus = false,
+          })
+        end,
         count = count,
       })
     end

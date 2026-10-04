@@ -27,15 +27,12 @@ function M.setup()
     "make",
     "toml",
     "zsh",
+    "diff",
   }
 
   require("nvim-treesitter").install(parsers)
 
   local available_parsers = require("nvim-treesitter").get_available()
-  available_parsers = vim.tbl_filter(
-    function(parser) return parser ~= "gitcommit" end,
-    available_parsers
-  )
   vim.api.nvim_create_autocmd("FileType", {
     callback = function(args)
       local buf, filetype = args.buf, args.match
