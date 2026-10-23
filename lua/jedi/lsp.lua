@@ -16,7 +16,7 @@ local servers = {
       },
       init_options = {
         clangdFileStatus = false,
-        fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-D_GNU_SOURCE", "-x", "c" },
+        fallbackFlags = { "-std=c11", "-D_POSIX_C_SOURCE=200809L", "-x", "c" },
       },
     },
   },

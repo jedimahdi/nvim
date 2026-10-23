@@ -93,34 +93,13 @@ vim.keymap.set("n", "<leader>u", function()
   require("undotree").open({ command = "40vnew" })
 end, { desc = "Open Undo Tree", silent = true })
 
-local function is_in_tmux() return vim.env.TMUX ~= nil end
-
-local function navigate_linear(direction)
-  local current_win = vim.api.nvim_get_current_win()
-
-  local normal_wins = {}
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative == "" then
-      table.insert(normal_wins, win)
+local flags = { h = "-L", j = "-D", k = "-U", l = "-R" }
+for _, dir in ipairs({ "h", "j", "k", "l" }) do
+  vim.keymap.set("n", "<C-" .. dir .. ">", function()
+    local before = vim.api.nvim_get_current_win()
+    vim.cmd.wincmd(dir) -- move within nvim...
+    if vim.api.nvim_get_current_win() == before and vim.env.TMUX then
+      vim.system({ "tmux", "select-pane", flags[dir] }) -- ...or hand off
     end
-  end
-
-  if #normal_wins > 1 then
-    if direction == "next" then
-      vim.cmd("wincmd w")
-    else
-      vim.cmd("wincmd W")
-    end
-  else
-    if is_in_tmux() then
-      if direction == "next" then
-        vim.fn.system("tmux select-pane -t :.+")
-      else
-        vim.fn.system("tmux select-pane -t :.-")
-      end
-    end
-  end
+  end, { desc = "Window/tmux navigate " .. dir })
 end
-
-vim.keymap.set("n", "<C-j>", function() navigate_linear("next") end, { silent = true })
-vim.keymap.set("n", "<C-k>", function() navigate_linear("prev") end, { silent = true })
