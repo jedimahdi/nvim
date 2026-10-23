@@ -1,99 +1,72 @@
-local globals = {
-  loaded_netrw = 1,
-  loaded_netrwPlugin = 1,
-  loaded_netrwSettings = 1,
-  loaded_ruby_provider = 0,
-  loaded_perl_provider = 0,
-  loaded_node_provider = 0,
-  loaded_python3_provider = nil,
-  loaded_2html_plugin = 1,
-  loaded_tutor_mode_plugin = 1,
-  loaded_zipPlugin = 1,
-  loaded_tarPlugin = 1,
-  loaded_gzip = 1,
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+-- vim.g.loaded_python3_provider = 0
 
-  c_syntax_for_h = 1,
-  have_nerd_font = true,
-  editorconfig = true,
+vim.g.c_syntax_for_h = 1
+vim.g.have_nerd_font = true
+vim.g.mapleader = " "
 
-  mapleader = " ",
-}
+vim.opt.laststatus = 0
+vim.opt.ruler = false
+vim.opt.cmdheight = 1
+vim.opt.showmode = true
+vim.opt.showcmd = true
+-- vim.opt.messagesopt = "wait:200,history:500" -- default = "hit-enter,history:500"
+-- vim.opt.report = 10000
 
-local options = {
-  laststatus = 0,
-  ruler = false,
-  cmdheight = 1,
-  showmode = true,
-  showcmd = true,
-  -- messagesopt = "wait:200,history:500", -- default = "hit-enter,history:500"
-  -- report = 10000,
+vim.opt.signcolumn = "no"
+vim.opt.number = false
+vim.opt.relativenumber = false
 
-  signcolumn = "no",
-  number = false,
-  relativenumber = false,
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.breakindent = true
+vim.opt.linebreak = true
+vim.opt.concealcursor = "nc"
 
-  tabstop = 2,
-  softtabstop = 2,
-  shiftwidth = 2,
-  expandtab = true,
-  smartindent = true,
-  breakindent = true,
-  linebreak = true,
-  concealcursor = "nc",
+vim.opt.wrap = false
+vim.opt.smoothscroll = true
+vim.opt.cursorline = false
+vim.opt.scrolloff = 5
 
-  wrap = false,
-  smoothscroll = true,
-  cursorline = false, --highlight line
-  scrolloff = 5,
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.inccommand = "nosplit"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
-  hlsearch = true,
-  incsearch = true,
-  inccommand = "nosplit",
-  ignorecase = true,
-  smartcase = true,
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
 
-  swapfile = false,
-  backup = false,
-  undofile = true,
+vim.opt.foldmethod = "manual"
+vim.opt.foldenable = false
 
-  foldmethod = "manual",
-  foldenable = false,
+vim.opt.errorbells = false
+vim.opt.belloff = "all"
+vim.opt.mouse = "a"
+vim.opt.clipboard = "unnamedplus"
+vim.opt.history = 1000
+vim.opt.guicursor = ""
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+-- vim.opt.updatetime = 250 -- Save swap file and trigger CursorHold
+vim.opt.updatecount = 0
+vim.opt.timeoutlen = 500
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+vim.opt.backspace = "indent,eol,start"
+vim.opt.wildmode = "longest:full,full"
+vim.opt.wildoptions = "pum"
+vim.opt.pumheight = 10
+vim.opt.confirm = true
+vim.opt.fillchars = { eob = " " }
+vim.opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
 
-  errorbells = false,
-  belloff = "all",
-  mouse = "a",
-  clipboard = "unnamedplus",
-  history = 1000,
-  guicursor = "",
-  splitright = true,
-  splitbelow = true,
-  -- updatetime = 250, -- Save swap file and trigger CursorHold
-  updatecount = 0,
-  timeoutlen = 500,
-  termguicolors = true,
-  background = "dark",
-  backspace = "indent,eol,start",
-  wildmode = "longest:full,full",
-  wildoptions = "pum",
-  pumheight = 10,
-  confirm = true,
-  fillchars = { eob = " " },
-  completeopt = { "menu", "menuone", "noinsert", "noselect" },
-}
+vim.opt.jumpoptions = "view"
 
-for k, v in pairs(globals) do
-  vim.g[k] = v
-end
-
-for k, v in pairs(options) do
-  vim.opt[k] = v
-end
-
-vim.opt.shortmess:append({
-  A = true,
-  c = true,
-  C = true,
-  I = true,
-  s = true,
-  W = true,
-})
+vim.opt.shortmess:append("AcCIsW")
