@@ -15,21 +15,23 @@ local spec = {
     opts = require("jedi.oil").opts,
     keys = require("jedi.oil").keys,
     lazy = false,
-    -- dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
-    "kylechui/nvim-surround",
-    version = "^3.0.0",
+    "nvim-mini/mini.surround",
     lazy = true,
     keys = {
-      { "ys", mode = "n" },
-      { "ds", mode = "n" },
-      { "cs", mode = "n" },
-      { "S", mode = "v" },
+      { "S", mode = { "n", "v" } },
+      { "sd", mode = "n" },
+      { "sr", mode = "n" },
     },
-    opts = {},
+    opts = {
+      mappings = {
+        add = "S",
+      },
+    },
   },
-  { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
+  { "nvim-mini/mini.pairs", event = "InsertEnter", opts = {} },
   {
     "nvim-treesitter/nvim-treesitter",
     config = require("jedi.treesitter").setup,
@@ -65,6 +67,12 @@ local spec = {
     opts = require("jedi.fzf").opts,
     keys = require("jedi.fzf").keys,
   },
+  -- {
+  --   "nvim-mini/mini.pick",
+  --   config = function() require("jedi.pick").setup() end,
+  --   cmd = { "Pick" },
+  --   keys = require("jedi.pick").keys,
+  -- },
   -- { "kevinhwang91/nvim-bqf", ft = "qf", config = require("jedi.bqf").setup },
 }
 
